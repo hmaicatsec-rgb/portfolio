@@ -599,6 +599,119 @@ footer {
 #back-top.show { opacity:1; transform:translateY(0); }
 #back-top:hover { border-color:var(--cyan); color:var(--cyan); }
 
+
+/* LOADING SCREEN */
+#loader {
+  position: fixed; inset: 0; z-index: 99999;
+  background: #030712;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+#loader.hide { opacity: 0; visibility: hidden; }
+.loader-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px; font-weight: 900;
+  background: linear-gradient(135deg, #22d3ee, #c084fc, #fb923c);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  animation: loader-pulse 1s ease infinite;
+}
+@keyframes loader-pulse { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
+.loader-sub { font-family:'Space Mono',monospace; font-size:11px; color:#475569; letter-spacing:4px; text-transform:uppercase; margin-bottom:40px; }
+.loader-bar-wrap { width:200px; height:2px; background:rgba(255,255,255,0.06); border-radius:2px; overflow:hidden; }
+.loader-bar { height:100%; width:0; background:linear-gradient(90deg,#22d3ee,#c084fc,#fb923c); border-radius:2px; animation: load-progress 2s ease forwards; }
+@keyframes load-progress { 0%{width:0;} 60%{width:70%;} 80%{width:85%;} 100%{width:100%;} }
+.loader-pct { font-family:'Space Mono',monospace; font-size:12px; color:#22d3ee; margin-top:12px; letter-spacing:2px; }
+
+/* COLORFUL HERO UPGRADES */
+.hero-tag {
+  background: linear-gradient(135deg, rgba(34,211,238,0.08), rgba(192,132,252,0.08)) !important;
+  border: 1px solid rgba(192,132,252,0.2) !important;
+  color: #c084fc !important;
+}
+.hero-tag-dot { background: linear-gradient(135deg,#22d3ee,#c084fc) !important; }
+
+.hero-name { 
+  background: linear-gradient(135deg, #f8fafc 30%, #94a3b8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-name .line2 {
+  background: linear-gradient(135deg, #22d3ee 0%, #c084fc 50%, #fb923c 100%) !important;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: gradient-shift 4s ease infinite;
+  background-size: 200% 200%;
+}
+@keyframes gradient-shift {
+  0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;}
+}
+
+/* TYPING CURSOR */
+#typed-cursor { 
+  display:inline-block; width:2px; height:16px; background:var(--cyan); 
+  margin-left:4px; animation:blink 0.8s infinite; vertical-align:middle;
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+/* COLORFUL BUTTONS */
+.btn-primary {
+  background: linear-gradient(135deg, #22d3ee, #c084fc) !important;
+  box-shadow: 0 0 30px rgba(192,132,252,0.3) !important;
+  position: relative; overflow: hidden;
+}
+.btn-primary::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(135deg, #c084fc, #fb923c);
+  opacity:0; transition:opacity 0.4s;
+}
+.btn-primary:hover::after { opacity:1; }
+.btn-primary:hover { box-shadow: 0 0 50px rgba(251,146,60,0.5) !important; }
+.btn-primary span,.btn-primary i { position:relative; z-index:1; }
+
+/* COLORFUL STATS */
+.hero-stats { background: transparent !important; border: none !important; gap: 12px !important; }
+.stat {
+  border-radius: 12px !important;
+  position: relative; overflow: hidden;
+  transition: transform 0.3s !important;
+}
+.stat:hover { transform: translateY(-4px) scale(1.03); }
+.stat:nth-child(1) { background: linear-gradient(135deg,rgba(34,211,238,0.1),rgba(34,211,238,0.05)) !important; border:1px solid rgba(34,211,238,0.2) !important; }
+.stat:nth-child(2) { background: linear-gradient(135deg,rgba(192,132,252,0.1),rgba(192,132,252,0.05)) !important; border:1px solid rgba(192,132,252,0.2) !important; }
+.stat:nth-child(3) { background: linear-gradient(135deg,rgba(251,146,60,0.1),rgba(251,146,60,0.05)) !important; border:1px solid rgba(251,146,60,0.2) !important; }
+.stat:nth-child(4) { background: linear-gradient(135deg,rgba(74,222,128,0.1),rgba(74,222,128,0.05)) !important; border:1px solid rgba(74,222,128,0.2) !important; }
+.stat:nth-child(1) .stat-num { color:#22d3ee !important; text-shadow:0 0 20px rgba(34,211,238,0.5); }
+.stat:nth-child(2) .stat-num { color:#c084fc !important; text-shadow:0 0 20px rgba(192,132,252,0.5); }
+.stat:nth-child(3) .stat-num { color:#fb923c !important; text-shadow:0 0 20px rgba(251,146,60,0.5); }
+.stat:nth-child(4) .stat-num { color:#4ade80 !important; text-shadow:0 0 20px rgba(74,222,128,0.5); }
+
+/* COUNT UP ANIMATION */
+.stat-num { transition: all 0.3s; }
+
+/* COLORFUL HERO ORBS */
+.hero-orb1 { background:radial-gradient(circle,rgba(192,132,252,0.1),rgba(34,211,238,0.05),transparent 70%) !important; }
+.hero-orb2 { background:radial-gradient(circle,rgba(251,146,60,0.08),rgba(192,132,252,0.05),transparent 70%) !important; }
+
+/* Extra orb */
+.hero-orb3 { position:absolute; top:50%; left:30%; width:300px; height:300px; background:radial-gradient(circle,rgba(34,211,238,0.04),transparent 70%); pointer-events:none; transform:translateY(-50%); }
+
+/* HERO ROLES colorful */
+.hero-roles { color: transparent !important; background: linear-gradient(90deg,#22d3ee,#c084fc); -webkit-background-clip:text; background-clip:text; }
+
+/* CARD colorful border */
+.hero-card { border: 1px solid rgba(192,132,252,0.15) !important; box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(192,132,252,0.05) !important; }
+
+/* SCROLL INDICATOR */
+.scroll-hint {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-family: 'Space Mono', monospace; font-size: 9px; color: #475569;
+  letter-spacing: 3px; text-transform: uppercase; animation: bounce 2s infinite;
+  z-index: 2;
+}
+.scroll-hint-arrow { font-size: 18px; color: #22d3ee; }
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(8px);} }
+
 /* RESPONSIVE */
 @media(max-width:900px) {
   nav { padding:16px 24px; }
@@ -618,6 +731,15 @@ footer {
 </style>
 </head>
 <body>
+
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-logo">MAI</div>
+  <div class="loader-sub">Muhammad Ahsan Iqbal</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-pct" id="loader-pct">0%</div>
+</div>
 
 <!-- CURSOR -->
 <div id="cursor"></div>
@@ -647,6 +769,7 @@ footer {
   <div class="grid-bg"></div>
   <div class="hero-orb1"></div>
   <div class="hero-orb2"></div>
+  <div class="hero-orb3"></div>
   <div class="hero-grid">
     <div>
       <div class="hero-tag"><span class="hero-tag-dot"></span> Available for Internships & Freelance</div>
@@ -654,21 +777,15 @@ footer {
         Muhammad<br>
         <span class="line2">Ahsan Iqbal</span>
       </h1>
-      <div class="hero-roles">
-        <div class="hero-roles-inner">
-          <div>// Cybersecurity Enthusiast</div>
-          <div>// Penetration Tester (Learning)</div>
-          <div>// Software Engineer</div>
-          <div>// Red Team Aspirant</div>
-          <div>// Hafiz-e-Quran 🕌</div>
-        </div>
+      <div class="hero-roles" style="height:auto;overflow:visible;color:transparent;background:none;">
+        <span id="typed-text" style="font-family:'Space Mono',monospace;font-size:13px;background:linear-gradient(90deg,#22d3ee,#c084fc);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:2px;"></span><span id="typed-cursor"></span>
       </div>
       <p class="hero-desc">
         First-year <strong>BS Software Engineering</strong> student at COMSATS University Islamabad, Sahiwal Campus. Passionate about <strong>cybersecurity, ethical hacking</strong>, and software development. Ranked <strong>Top 15%</strong> on TryHackMe globally with a 47-day streak. Building skills from zero through hands-on labs, certifications, and real projects.
       </p>
       <div class="hero-btns">
         <a href="#contact" class="btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
-        <a href="https://hmaicatsec-rgb.github.io/portfolio" class="btn-outline"><i class="fas fa-globe"></i> Portfolio</a>
+        <a href="https://www.linkedin.com/in/muhammad-ahsan-iqbal-9208973a7" target="_blank" class="btn-outline"><i class="fab fa-linkedin"></i> LinkedIn</a>
         <a href="https://wa.me/923101050497" target="_blank" class="btn-outline" style="border-color:rgba(37,211,102,0.3);color:#4ade80;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
       </div>
       <div class="hero-stats">
@@ -715,6 +832,7 @@ footer {
       </div>
     </div>
   </div>
+  <div class="scroll-hint"><span class="scroll-hint-arrow"><i class="fas fa-chevron-down"></i></span>Scroll Down</div>
 </section>
 
 <!-- MARQUEE -->
@@ -767,7 +885,7 @@ footer {
           <div class="info-item"><div class="info-label">Program</div><div class="info-value">BS Software Engineering</div></div>
           <div class="info-item"><div class="info-label">CGPA</div><div class="info-value" style="color:var(--cyan);">3.49 / 4.0</div></div>
           <div class="info-item"><div class="info-label">Status</div><div class="info-value" style="color:var(--green);">Open to Internships ✅</div></div>
-          <div class="info-item"><div class="info-label">Email</div><div class="info-value">hmai.catsec@gmail.com</div></div>
+          <div class="info-item"><div class="info-label">Email</div><div class="info-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee86838f87c08d8f9a9d8b8dae89838f8782c08d8183">[email&#160;protected]</a></div></div>
           <div class="info-item"><div class="info-label">Achievement</div><div class="info-value">Hafiz-e-Quran 🕌 (2019)</div></div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px;">
@@ -989,9 +1107,9 @@ footer {
       <div>
         <p style="font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:32px;">I'm open to <strong style="color:var(--text);">internship opportunities, freelance projects, collaborations</strong>, and connecting with fellow security enthusiasts. Don't hesitate to reach out!</p>
         <div class="contact-items">
-          <a href="mailto:hmai.catsec@gmail.com" class="contact-item reveal">
+          <a href="/cdn-cgi/l/email-protection#2c44414d45024f4d585f494f6c4b414d4540024f4341" class="contact-item reveal">
             <div class="ci-icon" style="background:rgba(251,146,60,0.1);color:var(--orange);"><i class="fas fa-envelope"></i></div>
-            <div class="ci-text"><div class="ci-label">Email</div><div class="ci-value">hmai.catsec@gmail.com</div></div>
+            <div class="ci-text"><div class="ci-label">Email</div><div class="ci-value"><span class="__cf_email__" data-cfemail="51393c30387f32302522343211363c30383d7f323e3c">[email&#160;protected]</span></div></div>
             <i class="fas fa-arrow-right ci-arrow"></i>
           </a>
           <a href="https://wa.me/923101050497" target="_blank" class="contact-item reveal">
@@ -1052,7 +1170,7 @@ footer {
       OPEN TO OPPORTUNITIES
     </div>
     <div class="footer-social">
-      <a href="mailto:hmai.catsec@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+      <a href="/cdn-cgi/l/email-protection#1e76737f77307d7f6a6d7b7d5e79737f7772307d7173" class="social-btn"><i class="fas fa-envelope"></i></a>
       <a href="https://wa.me/923101050497" target="_blank" class="social-btn" style="border-color:rgba(37,211,102,0.2);color:var(--green);"><i class="fab fa-whatsapp"></i></a>
       <a href="https://github.com/hmaicatsec-rgb" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
       <a href="https://linkedin.com/in/muhammad-ahsan-iqbal-9208973a7" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i></a>
@@ -1061,7 +1179,66 @@ footer {
   </footer>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+// LOADER
+const loaderEl = document.getElementById('loader');
+function hideLoader(){ loaderEl.style.cssText='opacity:0;transition:opacity 0.5s;'; setTimeout(()=>loaderEl.style.display='none',500); }
+let pct=0; const pctEl=document.getElementById('loader-pct');
+const loaderInterval=setInterval(()=>{ pct+=Math.random()*25+10; if(pct>=100){pct=100;clearInterval(loaderInterval);if(pctEl)pctEl.textContent='100%';setTimeout(hideLoader,200);return;} if(pctEl)pctEl.textContent=Math.floor(pct)+'%'; },60);
+setTimeout(hideLoader,2500);
+
+// TYPING EFFECT
+const roles = [
+  '// Cybersecurity Enthusiast',
+  '// Penetration Tester (Learning)',
+  '// Software Engineer',
+  '// Red Team Aspirant',
+  '// Hafiz-e-Quran 🕌',
+  '// CTF Player — Top 15% THM'
+];
+let rIdx=0, cIdx=0, deleting=false;
+const typedEl = document.getElementById('typed-text');
+function type() {
+  const current = roles[rIdx];
+  if(!deleting) {
+    typedEl.textContent = current.substring(0, cIdx+1);
+    cIdx++;
+    if(cIdx === current.length) { deleting=true; setTimeout(type, 1800); return; }
+    setTimeout(type, 60);
+  } else {
+    typedEl.textContent = current.substring(0, cIdx-1);
+    cIdx--;
+    if(cIdx === 0) { deleting=false; rIdx=(rIdx+1)%roles.length; setTimeout(type,300); return; }
+    setTimeout(type, 35);
+  }
+}
+setTimeout(type, 2500);
+
+// COUNT UP STATS
+function countUp(el, target, suffix='', duration=1500) {
+  let start=0, step=target/60;
+  const timer = setInterval(() => {
+    start += step;
+    if(start >= target) { el.textContent = target + suffix; clearInterval(timer); return; }
+    el.textContent = (Number.isInteger(target) ? Math.floor(start) : start.toFixed(2)) + suffix;
+  }, duration/60);
+}
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      const nums = e.target.querySelectorAll('.stat-num');
+      nums[0] && countUp(nums[0], 3.49, '', 1200);
+      nums[1] && setTimeout(()=>{ nums[1].textContent='Top 15%'; nums[1].style.transform='scale(1.1)'; setTimeout(()=>nums[1].style.transform='',300); },400);
+      nums[2] && setTimeout(()=>countUp(nums[2], 6, '+', 1000),600);
+      nums[3] && setTimeout(()=>countUp(nums[3], 47, '', 1000),800);
+      statsObserver.unobserve(e.target);
+    }
+  });
+}, {threshold:0.5});
+const heroStats = document.querySelector('.hero-stats');
+if(heroStats) statsObserver.observe(heroStats);
+
 // CURSOR
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
@@ -1137,17 +1314,4 @@ function draw(){
     p.x+=p.vx; p.y+=p.vy;
     if(p.x<0)p.x=W; if(p.x>W)p.x=0;
     if(p.y<0)p.y=H; if(p.y>H)p.y=0;
-    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle='rgba(34,211,238,0.4)'; ctx.fill();
-  });
-  particles.forEach((a,i)=>{ particles.slice(i+1).forEach(b=>{
-    const d=Math.hypot(a.x-b.x,a.y-b.y);
-    if(d<120){ ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
-      ctx.strokeStyle=`rgba(34,211,238,${0.08*(1-d/120)})`; ctx.lineWidth=0.5; ctx.stroke(); }
-  }); });
-  requestAnimationFrame(draw);
-}
-draw();
-</script>
-</body>
-</html>
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI
