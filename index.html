@@ -3,1523 +3,1151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muhammad Ahsan Iqbal | Software Engineer & Security Researcher</title>
-<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800;900&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<title>Muhammad Ahsan Iqbal — Cybersecurity & Software Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-/* ============================================================
-   ROOT & RESET
-============================================================ */
 :root {
-  --bg: #03040a;
-  --bg2: #070b16;
-  --surface: #0b1020;
-  --surface2: #0f1628;
-  --card: #111827;
-  --accent: #0ff;
-  --accent2: #a855f7;
-  --accent3: #f97316;
-  --green: #22c55e;
-  --text: #f0f4ff;
-  --muted: #64748b;
-  --border: rgba(0,255,255,0.08);
-  --border2: rgba(168,85,247,0.12);
-  --glow-c: rgba(0,255,255,0.2);
-  --glow-p: rgba(168,85,247,0.2);
-  --nav-h: 72px;
-  --r: 12px;
-  --transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-}
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; font-size:16px; }
-body {
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Cabinet Grotesk', sans-serif;
-  overflow-x:hidden;
-  cursor:none;
+  --bg: #030712;
+  --bg2: #070d1a;
+  --surface: #0d1424;
+  --surface2: #111827;
+  --border: rgba(255,255,255,0.07);
+  --text: #e2e8f0;
+  --muted: #475569;
+  --cyan: #22d3ee;
+  --green: #4ade80;
+  --orange: #fb923c;
+  --purple: #c084fc;
+  --red: #f87171;
+  --accent: var(--cyan);
 }
 
-/* ============================================================
-   CANVAS / PARTICLES
-============================================================ */
-#particles-canvas {
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CURSOR */
+#cursor { position:fixed; width:10px; height:10px; background:var(--cyan); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform 0.1s, background 0.2s; mix-blend-mode:difference; }
+#cursor-ring { position:fixed; width:36px; height:36px; border:1.5px solid rgba(34,211,238,0.4); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:all 0.15s ease-out; }
+
+/* NOISE OVERLAY */
+body::before {
+  content:'';
   position:fixed;
   inset:0;
-  z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events:none;
+  z-index:1;
+  opacity:0.4;
 }
 
-/* ============================================================
-   CUSTOM CURSOR
-============================================================ */
-.cur { position:fixed; pointer-events:none; z-index:9999; }
-.cur-dot {
-  width:10px; height:10px;
-  background:var(--accent);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  box-shadow:0 0 10px var(--accent);
-  transition:width .15s, height .15s, background .3s;
-}
-.cur-ring {
-  width:44px; height:44px;
-  border:1.5px solid rgba(0,255,255,0.5);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  transition:width .3s, height .3s, border-color .3s;
-}
-body.hovering .cur-dot { width:20px; height:20px; background:var(--accent2); box-shadow:0 0 20px var(--accent2); }
-body.hovering .cur-ring { width:60px; height:60px; border-color:rgba(168,85,247,0.6); }
-
-/* ============================================================
-   SCROLLBAR
-============================================================ */
+/* SCROLLBAR */
 ::-webkit-scrollbar { width:4px; }
 ::-webkit-scrollbar-track { background:var(--bg); }
-::-webkit-scrollbar-thumb { background:linear-gradient(var(--accent),var(--accent2)); border-radius:2px; }
+::-webkit-scrollbar-thumb { background:var(--cyan); border-radius:2px; }
 
-/* ============================================================
-   LOADER
-============================================================ */
-#loader {
-  position:fixed; inset:0; z-index:9998;
-  background:var(--bg);
-  display:flex; align-items:center; justify-content:center;
-  flex-direction:column; gap:24px;
-  transition:opacity .6s ease, visibility .6s ease;
-}
-#loader.hidden { opacity:0; visibility:hidden; }
-.loader-logo {
-  font-family:'JetBrains Mono', monospace;
-  font-size:13px;
-  color:var(--accent);
-  letter-spacing:4px;
-  animation:blink 1s step-end infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-.loader-bar-wrap {
-  width:200px; height:2px;
-  background:rgba(255,255,255,0.06);
-  border-radius:1px;
-  overflow:hidden;
-}
-.loader-bar {
-  height:100%;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  width:0;
-  animation:load 1.8s ease forwards;
-}
-@keyframes load { to{width:100%} }
-
-/* ============================================================
-   NAVIGATION
-============================================================ */
+/* NAV */
 nav {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  height:var(--nav-h);
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 60px;
-  transition:var(--transition);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: all 0.4s;
+  backdrop-filter: blur(0px);
 }
 nav.scrolled {
-  background:rgba(3,4,10,0.85);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
+  background: rgba(3,7,18,0.85);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(20px);
+  padding: 14px 48px;
 }
 .nav-logo {
-  font-family:'JetBrains Mono', monospace;
-  font-size:14px;
-  color:var(--accent);
-  letter-spacing:3px;
-  text-transform:uppercase;
-  text-decoration:none;
-  display:flex; align-items:center; gap:10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
 }
-.nav-logo-bracket { color:var(--accent2); }
-.nav-links { display:flex; gap:36px; list-style:none; }
+.nav-links { display:flex; gap:32px; list-style:none; }
 .nav-links a {
-  font-size:13px;
-  font-weight:600;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  color:var(--muted);
-  text-decoration:none;
-  position:relative;
-  transition:color .3s;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
 }
 .nav-links a::after {
   content:'';
-  position:absolute; bottom:-4px; left:0;
-  width:0; height:1.5px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  transition:width .3s;
+  position:absolute;
+  bottom:-4px; left:0;
+  width:0; height:1px;
+  background:var(--cyan);
+  transition:width 0.3s;
 }
-.nav-links a:hover { color:var(--text); }
+.nav-links a:hover { color:var(--cyan); }
 .nav-links a:hover::after { width:100%; }
 
-.nav-hire {
-  padding:10px 24px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#000;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  text-decoration:none;
-  border-radius:50px;
-  transition:var(--transition);
-  box-shadow:0 0 20px var(--glow-c);
-}
-.nav-hire:hover { transform:translateY(-2px) scale(1.05); box-shadow:0 0 40px var(--glow-c); }
-
-/* Hamburger */
-.hamburger { display:none; flex-direction:column; gap:5px; cursor:none; background:none; border:none; padding:4px; }
-.hamburger span { width:24px; height:2px; background:var(--text); border-radius:2px; transition:var(--transition); }
-
-/* Mobile Menu */
-.mobile-menu {
-  position:fixed; top:0; left:0; right:0; bottom:0; z-index:99;
-  background:rgba(3,4,10,0.97);
-  backdrop-filter:blur(30px);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:40px;
-  opacity:0; visibility:hidden;
-  transition:var(--transition);
-}
-.mobile-menu.open { opacity:1; visibility:visible; }
-.mobile-menu a {
-  font-size:36px;
-  font-weight:900;
-  color:var(--text);
-  text-decoration:none;
-  letter-spacing:2px;
-  transition:color .3s;
-}
-.mobile-menu a:hover { color:var(--accent); }
-
-/* ============================================================
-   HERO
-============================================================ */
+/* HERO */
 #hero {
-  min-height:100vh;
-  display:flex; align-items:center;
-  padding:calc(var(--nav-h) + 40px) 60px 60px;
-  position:relative; overflow:hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
 }
-
-.hero-bg-mesh {
-  position:absolute; inset:0; pointer-events:none;
-  background:
-    radial-gradient(ellipse 700px 500px at 80% 20%, rgba(0,255,255,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 600px 600px at 10% 80%, rgba(168,85,247,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 400px 400px at 50% 50%, rgba(249,115,22,0.03) 0%, transparent 70%);
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
 }
-
-.hero-grid-lines {
-  position:absolute; inset:0; pointer-events:none; overflow:hidden;
-  background-image:
-    linear-gradient(rgba(0,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,255,0.025) 1px, transparent 1px);
-  background-size:60px 60px;
-  mask-image:radial-gradient(ellipse at center, black 30%, transparent 80%);
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(34,211,238,0.06);
+  border: 1px solid rgba(34,211,238,0.15);
+  border-radius: 50px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
 }
-
-.hero-inner {
-  position:relative; z-index:1;
-  display:grid; grid-template-columns:1fr 420px;
-  gap:80px; align-items:center;
-  width:100%; max-width:1400px; margin:0 auto;
-}
-
-.hero-left {}
-
-.hero-badge {
-  display:inline-flex; align-items:center; gap:10px;
-  padding:8px 20px;
-  background:rgba(0,255,255,0.06);
-  border:1px solid rgba(0,255,255,0.15);
-  border-radius:50px;
-  margin-bottom:28px;
-  opacity:0; animation:fadeUp .8s ease .3s forwards;
-}
-.hero-badge-dot { width:8px; height:8px; background:var(--green); border-radius:50%; animation:ping 2s ease-in-out infinite; }
+.hero-tag-dot { width:6px; height:6px; background:var(--cyan); border-radius:50%; animation:ping 2s infinite; }
 @keyframes ping {
-  0%,100%{ box-shadow:0 0 0 0 rgba(34,197,94,0.6); }
-  50%{ box-shadow:0 0 0 8px rgba(34,197,94,0); }
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.5;transform:scale(1.4);}
 }
-.hero-badge span { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:2px; }
-
 .hero-name {
-  font-family:'Cabinet Grotesk', sans-serif;
-  font-size:clamp(48px,7vw,90px);
-  font-weight:900;
-  line-height:1;
-  margin-bottom:16px;
-  opacity:0; animation:fadeUp .8s ease .5s forwards;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(42px, 6vw, 80px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+  color: #f8fafc;
+  margin-bottom: 16px;
 }
-.hero-name .first { display:block; color:var(--text); }
-.hero-name .last {
-  display:block;
-  background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 50%,var(--accent3) 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  background-clip:text;
+.hero-name .line2 {
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-
-.hero-typed-wrap {
-  height:32px;
-  display:flex; align-items:center; gap:12px;
-  margin-bottom:28px;
-  opacity:0; animation:fadeUp .8s ease .7s forwards;
+.hero-roles {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: var(--orange);
+  letter-spacing: 2px;
+  margin-bottom: 28px;
+  height: 20px;
+  overflow: hidden;
 }
-.hero-typed-prefix { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--muted); }
-#typed-text { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--accent); }
-.typed-cursor { display:inline-block; width:2px; height:16px; background:var(--accent); margin-left:2px; animation:blink 1s step-end infinite; }
-
+.hero-roles-inner { animation: slide 10s infinite; }
+@keyframes slide {
+  0%,18%{transform:translateY(0);}
+  20%,38%{transform:translateY(-20px);}
+  40%,58%{transform:translateY(-40px);}
+  60%,78%{transform:translateY(-60px);}
+  80%,98%{transform:translateY(-80px);}
+  100%{transform:translateY(0);}
+}
 .hero-desc {
-  font-size:17px;
-  color:var(--muted);
-  line-height:1.9;
-  max-width:560px;
-  margin-bottom:44px;
-  opacity:0; animation:fadeUp .8s ease .9s forwards;
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 560px;
+  margin-bottom: 44px;
 }
-.hero-desc strong { color:var(--text); font-weight:700; }
-
-.hero-actions {
-  display:flex; gap:16px; flex-wrap:wrap;
-  opacity:0; animation:fadeUp .8s ease 1.1s forwards;
+.hero-desc strong { color: var(--text); }
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:52px; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: var(--cyan);
+  color: #000;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s;
+  box-shadow: 0 0 30px rgba(34,211,238,0.3);
 }
-
-.btn { display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; border-radius:50px; transition:var(--transition); cursor:none; }
-.btn-glow {
-  padding:14px 36px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#000;
-  box-shadow:0 0 30px var(--glow-c);
-}
-.btn-glow:hover { transform:translateY(-3px) scale(1.05); box-shadow:0 0 60px var(--glow-c), 0 20px 40px rgba(0,0,0,0.4); }
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 0 50px rgba(34,211,238,0.5); }
 .btn-outline {
-  padding:13px 32px;
-  border:1.5px solid rgba(255,255,255,0.12);
-  color:var(--text);
-  background:rgba(255,255,255,0.03);
-  backdrop-filter:blur(10px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s;
 }
-.btn-outline:hover { border-color:var(--accent); color:var(--accent); background:rgba(0,255,255,0.05); transform:translateY(-3px); }
-
+.btn-outline:hover { border-color:var(--cyan); color:var(--cyan); transform:translateY(-3px); }
 .hero-stats {
-  display:flex; gap:40px; flex-wrap:wrap;
-  margin-top:56px; padding-top:40px;
-  border-top:1px solid var(--border);
-  opacity:0; animation:fadeUp .8s ease 1.3s forwards;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
 }
-.hero-stat-num { font-size:38px; font-weight:900; color:var(--accent); line-height:1; }
-.hero-stat-label { font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
+.stat {
+  background: var(--surface);
+  padding: 18px 16px;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
 
-/* Hero Right — 3D Card */
-.hero-right {
-  opacity:0; animation:fadeIn 1s ease 1s forwards;
+/* Hero right — terminal card */
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(34,211,238,0.04);
 }
+.card-bar {
+  background: var(--surface2);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.card-dot { width:10px; height:10px; border-radius:50%; }
+.card-bar-title { font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); margin-left:auto; margin-right:auto; letter-spacing:2px; }
+.card-body { padding:24px; font-family:'Space Mono',monospace; font-size:12px; line-height:2; }
+.c-comment { color:var(--muted); }
+.c-key { color:var(--purple); }
+.c-str { color:var(--orange); }
+.c-num { color:var(--cyan); }
+.c-bool { color:var(--green); }
+.c-bracket { color:var(--text); }
 
-.profile-card {
-  background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 100%);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:40px;
-  position:relative; overflow:hidden;
-  transform-style:preserve-3d;
-  transition:transform .1s ease;
-  box-shadow:0 40px 80px rgba(0,0,0,0.5), 0 0 60px rgba(0,255,255,0.05);
+/* THM BADGE */
+.thm-card {
+  margin: 12px 24px 24px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(34,211,238,0.08);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.profile-card::before {
-  content:'';
-  position:absolute; inset:0;
-  background:linear-gradient(135deg,rgba(0,255,255,0.04) 0%,rgba(168,85,247,0.04) 100%);
-  border-radius:24px;
-}
-.profile-card-glow {
+.thm-stats { display:flex; gap:16px; }
+.thm-stat { text-align:center; }
+.thm-stat-n { font-family:'Syne',sans-serif; font-size:18px; font-weight:900; color:var(--cyan); }
+.thm-stat-l { font-family:'Space Mono',monospace; font-size:8px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
+
+/* BG EFFECTS */
+.hero-orb1 { position:absolute; top:-200px; right:0; width:600px; height:600px; background:radial-gradient(circle,rgba(34,211,238,0.06),transparent 70%); pointer-events:none; }
+.hero-orb2 { position:absolute; bottom:-100px; left:-100px; width:400px; height:400px; background:radial-gradient(circle,rgba(192,132,252,0.05),transparent 70%); pointer-events:none; }
+.grid-bg {
   position:absolute;
-  width:200px; height:200px;
-  border-radius:50%;
-  filter:blur(60px);
+  inset:0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
   pointer-events:none;
-  animation:float-glow 6s ease-in-out infinite;
 }
-.g1 { background:rgba(0,255,255,0.15); top:-60px; right:-40px; }
-.g2 { background:rgba(168,85,247,0.12); bottom:-60px; left:-40px; animation-delay:-3s; }
-@keyframes float-glow { 0%,100%{transform:scale(1) translate(0,0)} 50%{transform:scale(1.2) translate(10px,-10px)} }
 
-.avatar-wrap {
-  width:100px; height:100px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border-radius:50%; margin:0 auto 20px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:36px; font-weight:900; color:#000;
-  position:relative; z-index:1;
-  box-shadow:0 0 40px var(--glow-c);
-  animation:avatar-pulse 3s ease-in-out infinite;
-}
-@keyframes avatar-pulse { 0%,100%{box-shadow:0 0 30px var(--glow-c)} 50%{box-shadow:0 0 60px var(--glow-c), 0 0 80px var(--glow-p)} }
-
-.pc-name { text-align:center; font-size:22px; font-weight:900; color:var(--text); position:relative; z-index:1; }
-.pc-role { text-align:center; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:2px; margin:6px 0 24px; position:relative; z-index:1; }
-
-.pc-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; position:relative; z-index:1; }
-.pc-info-item {
-  background:rgba(255,255,255,0.04);
-  border:1px solid var(--border);
-  border-radius:10px; padding:12px;
-  transition:var(--transition);
-}
-.pc-info-item:hover { background:rgba(0,255,255,0.06); border-color:rgba(0,255,255,0.2); transform:translateY(-2px); }
-.pc-info-label { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
-.pc-info-val { font-size:13px; font-weight:700; color:var(--text); }
-
-.pc-divider { height:1px; background:var(--border); margin:20px 0; position:relative; z-index:1; }
-
-.pc-skills-row { display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
-.pc-skill-tag {
-  padding:5px 14px;
-  background:rgba(0,255,255,0.06);
-  border:1px solid rgba(0,255,255,0.12);
-  border-radius:50px;
-  font-size:11px; font-weight:700;
-  color:var(--accent);
-  font-family:'JetBrains Mono',monospace;
-  transition:var(--transition);
-}
-.pc-skill-tag:hover { background:rgba(0,255,255,0.15); transform:scale(1.05); }
-.pc-skill-tag.purple { color:var(--accent2); background:rgba(168,85,247,0.06); border-color:rgba(168,85,247,0.12); }
-.pc-skill-tag.purple:hover { background:rgba(168,85,247,0.15); }
-
-/* ============================================================
-   MARQUEE
-============================================================ */
-.marquee-section {
-  position:relative; z-index:1;
-  padding:20px 0; overflow:hidden;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  background:rgba(0,255,255,0.02);
-}
-.marquee-track {
-  display:flex; gap:0;
-  animation:marquee 30s linear infinite;
-  width:max-content;
-}
-.marquee-track:hover { animation-play-state:paused; }
-.marquee-item {
-  display:flex; align-items:center; gap:16px;
-  padding:0 32px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:12px;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.marquee-item .dot { color:var(--accent); font-size:20px; }
-@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-/* ============================================================
-   SECTIONS SHARED
-============================================================ */
-.section {
-  position:relative; z-index:1;
-  padding:120px 60px;
-}
-.section-alt { background:var(--bg2); }
-
+/* SECTIONS */
+.section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+.section-full { padding: 100px 48px; }
 .sec-label {
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px; color:var(--accent);
-  letter-spacing:4px; text-transform:uppercase;
-  display:flex; align-items:center; gap:14px;
-  margin-bottom:16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--cyan);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.sec-label::before { content:''; width:32px; height:1px; background:var(--accent); }
-.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
-
+.sec-label::after { content:''; flex:1; max-width:60px; height:1px; background:var(--border); }
 .sec-title {
-  font-size:clamp(34px,4vw,56px);
-  font-weight:900; line-height:1.05;
-  margin-bottom:64px;
-  max-width:700px;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 900;
+  color: #f8fafc;
+  line-height: 1.1;
+  margin-bottom: 60px;
+  letter-spacing: -1px;
 }
-.sec-title .grad {
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
+.sec-title .accent { color:var(--cyan); }
 
-/* reveal on scroll */
-.reveal { opacity:0; transform:translateY(40px); transition:opacity .7s ease, transform .7s ease; }
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
-.reveal-left { opacity:0; transform:translateX(-40px); transition:opacity .7s ease, transform .7s ease; }
-.reveal-left.visible { opacity:1; transform:translateX(0); }
-.reveal-right { opacity:0; transform:translateX(40px); transition:opacity .7s ease, transform .7s ease; }
-.reveal-right.visible { opacity:1; transform:translateX(0); }
 
-/* ============================================================
-   ABOUT
-============================================================ */
-.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
-.about-text p { font-size:16px; color:var(--muted); line-height:1.9; margin-bottom:20px; }
-.about-text strong { color:var(--text); font-weight:700; }
-.about-text .highlight { color:var(--accent); font-weight:700; }
-
-.about-terminal {
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 40px 80px rgba(0,0,0,0.4), 0 0 40px rgba(0,255,255,0.04);
-  transition:var(--transition);
+/* ABOUT */
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+.about-text { font-size:16px; color:var(--muted); line-height:1.9; }
+.about-text p { margin-bottom:20px; }
+.about-text strong { color:var(--text); }
+.about-highlight {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 24px 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: var(--cyan);
+  line-height: 1.8;
 }
-.about-terminal:hover { transform:translateY(-8px); box-shadow:0 60px 100px rgba(0,0,0,0.5), 0 0 60px rgba(0,255,255,0.08); }
-.terminal-topbar {
-  display:flex; align-items:center; gap:8px;
-  padding:14px 20px;
-  background:rgba(255,255,255,0.03);
-  border-bottom:1px solid var(--border);
+.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.info-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  transition: border-color 0.3s;
 }
-.tb-dot { width:12px; height:12px; border-radius:50%; }
-.tb-dot.r { background:#ff5f57; } .tb-dot.y { background:#ffbd2e; } .tb-dot.g { background:#28c940; }
-.tb-title { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); margin-left:auto; margin-right:auto; letter-spacing:2px; }
-.terminal-body { padding:28px; }
-.t-line { font-family:'JetBrains Mono',monospace; font-size:13px; line-height:2.2; }
-.t-prompt { color:var(--accent2); }
-.t-cmd { color:var(--text); }
-.t-key { color:var(--accent); }
-.t-val { color:#86efac; }
-.t-comment { color:var(--muted); }
-.t-string { color:#fca5a5; }
+.info-item:hover { border-color:rgba(34,211,238,0.2); }
+.info-label { font-family:'Space Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.info-value { font-size:14px; color:var(--text); font-weight:500; }
 
-.about-lang-section { margin-top:36px; }
-.lang-title { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:3px; text-transform:uppercase; margin-bottom:16px; }
-.lang-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.lang-item {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:10px 16px;
+/* SKILLS */
+.skills-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:40px; }
+.tab-btn {
+  padding: 8px 20px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.tab-btn.active, .tab-btn:hover { background:rgba(34,211,238,0.08); border-color:rgba(34,211,238,0.3); color:var(--cyan); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+.skills-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.skill-item { display:flex; flex-direction:column; gap:8px; }
+.skill-header { display:flex; justify-content:space-between; align-items:center; }
+.skill-name { font-size:14px; font-weight:500; color:var(--text); }
+.skill-pct { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); }
+.skill-bar { height:3px; background:rgba(255,255,255,0.06); border-radius:2px; overflow:hidden; }
+.skill-fill { height:100%; background:linear-gradient(90deg,var(--cyan),var(--purple)); border-radius:2px; width:0; transition:width 1.2s ease; }
+
+/* EDUCATION TIMELINE */
+.timeline { position:relative; padding-left:32px; }
+.timeline::before { content:''; position:absolute; left:0; top:8px; bottom:0; width:1px; background:var(--border); }
+.t-item { position:relative; margin-bottom:40px; }
+.t-item::before {
+  content:'';
+  position:absolute;
+  left:-36px; top:6px;
+  width:10px; height:10px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 12px rgba(34,211,238,0.5);
+}
+.t-date { font-family:'Space Mono',monospace; font-size:10px; color:var(--cyan); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+.t-title { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; color:var(--text); margin-bottom:4px; }
+.t-sub { font-size:14px; color:var(--muted); margin-bottom:12px; }
+.t-grades { display:flex; gap:8px; flex-wrap:wrap; }
+.t-grade { padding:3px 12px; background:rgba(34,211,238,0.06); border:1px solid rgba(34,211,238,0.12); border-radius:50px; font-family:'Space Mono',monospace; font-size:10px; color:var(--cyan); }
+.t-grade.orange { background:rgba(251,146,60,0.06); border-color:rgba(251,146,60,0.12); color:var(--orange); }
+.t-grade.purple { background:rgba(192,132,252,0.06); border-color:rgba(192,132,252,0.12); color:var(--purple); }
+.t-grade.green { background:rgba(74,222,128,0.06); border-color:rgba(74,222,128,0.12); color:var(--green); }
+
+/* CGPA CARD */
+.cgpa-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px; }
+.cgpa-item {
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:8px;
-  transition:var(--transition);
+  padding:16px;
+  text-align:center;
+  transition:all 0.3s;
 }
-.lang-item:hover { border-color:rgba(0,255,255,0.2); background:rgba(0,255,255,0.04); }
-.lang-name { font-weight:700; font-size:14px; }
-.lang-badge {
-  font-family:'JetBrains Mono',monospace; font-size:9px;
-  padding:3px 10px; border-radius:50px; letter-spacing:1px;
-}
-.badge-adv { background:rgba(34,197,94,0.1); color:#22c55e; border:1px solid rgba(34,197,94,0.2); }
-.badge-int { background:rgba(0,255,255,0.1); color:var(--accent); border:1px solid rgba(0,255,255,0.2); }
-.badge-beg { background:rgba(168,85,247,0.1); color:var(--accent2); border:1px solid rgba(168,85,247,0.2); }
+.cgpa-item:hover { border-color:rgba(34,211,238,0.2); }
+.cgpa-sem { font-family:'Space Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; }
+.cgpa-num { font-family:'Syne',sans-serif; font-size:24px; font-weight:900; color:var(--cyan); }
 
-/* ============================================================
-   SKILLS
-============================================================ */
-.skills-tabs { display:flex; gap:8px; margin-bottom:48px; flex-wrap:wrap; }
-.skill-tab {
-  padding:10px 24px;
-  border-radius:50px;
-  font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
-  font-family:'JetBrains Mono',monospace;
-  border:1.5px solid var(--border);
-  color:var(--muted);
-  background:transparent;
-  cursor:none;
-  transition:var(--transition);
-}
-.skill-tab:hover { color:var(--text); border-color:rgba(255,255,255,0.2); }
-.skill-tab.active { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#000; border-color:transparent; box-shadow:0 0 20px var(--glow-c); }
-
-.skills-panel { display:none; }
-.skills-panel.active { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
-
-.skill-card {
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:24px;
-  position:relative; overflow:hidden;
-  transition:var(--transition);
-  cursor:none;
-}
-.skill-card::before {
-  content:'';
-  position:absolute; top:0; left:0;
-  width:3px; height:0;
-  background:linear-gradient(to bottom,var(--accent),var(--accent2));
-  transition:height .4s ease;
-}
-.skill-card:hover { transform:translateY(-6px); border-color:rgba(0,255,255,0.15); background:var(--surface2); box-shadow:0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(0,255,255,0.05); }
-.skill-card:hover::before { height:100%; }
-
-.sc-icon { font-size:28px; margin-bottom:14px; }
-.sc-name { font-size:16px; font-weight:800; margin-bottom:8px; }
-.sc-level { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; }
-.sc-bar { height:3px; background:rgba(255,255,255,0.06); border-radius:2px; overflow:hidden; }
-.sc-fill { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--accent2)); width:0; transition:width 1.5s cubic-bezier(0.4,0,0.2,1); }
-.sc-fill.done { width:var(--w); }
-
-/* ============================================================
-   EDUCATION — TIMELINE
-============================================================ */
-.edu-timeline { position:relative; padding-left:48px; max-width:800px; }
-.edu-timeline::before {
-  content:'';
-  position:absolute; left:0; top:16px; bottom:16px;
-  width:2px;
-  background:linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
-}
-
-.edu-item {
-  position:relative; margin-bottom:56px;
-  transition:var(--transition);
-}
-.edu-item:hover { transform:translateX(8px); }
-
-.edu-dot {
-  position:absolute; left:-54px; top:8px;
-  width:14px; height:14px;
-  border:2px solid var(--accent);
-  background:var(--bg);
-  border-radius:50%;
-  box-shadow:0 0 16px rgba(0,255,255,0.5);
-}
-.edu-item:nth-child(2) .edu-dot { border-color:var(--accent2); box-shadow:0 0 16px rgba(168,85,247,0.5); }
-.edu-item:nth-child(3) .edu-dot { border-color:var(--accent3); box-shadow:0 0 16px rgba(249,115,22,0.5); }
-
-.edu-year {
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px; color:var(--accent); letter-spacing:3px;
-  text-transform:uppercase; margin-bottom:10px;
-}
-.edu-item:nth-child(2) .edu-year { color:var(--accent2); }
-.edu-item:nth-child(3) .edu-year { color:var(--accent3); }
-
-.edu-card {
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:16px; padding:28px;
-  position:relative; overflow:hidden;
-  transition:var(--transition);
-}
-.edu-card:hover { border-color:rgba(0,255,255,0.2); box-shadow:0 20px 40px rgba(0,0,0,0.3); }
-.edu-degree { font-size:20px; font-weight:900; margin-bottom:6px; }
-.edu-school { font-size:14px; color:var(--muted); margin-bottom:14px; }
-.edu-status {
-  display:inline-flex; align-items:center; gap:6px;
-  padding:5px 16px; border-radius:50px;
-  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase;
-}
-.edu-status.current { background:rgba(34,197,94,0.1); color:#22c55e; border:1px solid rgba(34,197,94,0.2); }
-.edu-status.done { background:rgba(0,255,255,0.08); color:var(--accent); border:1px solid rgba(0,255,255,0.15); }
-.edu-status-dot { width:6px; height:6px; border-radius:50%; background:currentColor; animation:ping 2s infinite; }
-
-/* ============================================================
-   CERTIFICATIONS
-============================================================ */
-.certs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
-
+/* CERTIFICATIONS */
+.certs-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .cert-card {
   background:var(--surface);
   border:1px solid var(--border);
-  border-radius:16px;
-  padding:28px;
-  position:relative; overflow:hidden;
-  transition:var(--transition);
-  cursor:none;
-}
-.cert-card::after {
-  content:'';
-  position:absolute; inset:0;
-  background:linear-gradient(135deg,rgba(0,255,255,0.03) 0%,transparent 60%);
-  opacity:0; transition:opacity .4s;
-}
-.cert-card:hover { transform:translateY(-8px) scale(1.01); border-color:rgba(0,255,255,0.2); box-shadow:0 30px 60px rgba(0,0,0,0.4), 0 0 40px rgba(0,255,255,0.06); }
-.cert-card:hover::after { opacity:1; }
-
-.cert-platform-badge {
-  display:inline-flex; align-items:center; gap:6px;
-  padding:4px 14px; border-radius:50px;
-  font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase;
-  margin-bottom:16px;
-}
-.badge-thm { background:rgba(249,115,22,0.1); color:var(--accent3); border:1px solid rgba(249,115,22,0.2); }
-.badge-ua { background:rgba(0,255,255,0.08); color:var(--accent); border:1px solid rgba(0,255,255,0.15); }
-
-.cert-name { font-size:16px; font-weight:800; margin-bottom:8px; line-height:1.4; }
-.cert-date { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:2px; }
-.cert-emoji { position:absolute; bottom:20px; right:20px; font-size:36px; opacity:0.12; transition:var(--transition); }
-.cert-card:hover .cert-emoji { opacity:0.3; transform:scale(1.2) rotate(10deg); }
-
-/* ============================================================
-   SERVICES / WHAT I DO
-============================================================ */
-.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.service-card {
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:36px 28px;
-  position:relative; overflow:hidden;
-  transition:var(--transition);
-  cursor:none;
-  group:true;
-}
-.service-card:hover { transform:translateY(-10px); border-color:rgba(0,255,255,0.2); box-shadow:0 40px 80px rgba(0,0,0,0.4), 0 0 50px rgba(0,255,255,0.06); }
-
-.sc-bg-icon {
-  position:absolute; right:-10px; bottom:-10px;
-  font-size:100px; opacity:0.04;
-  transition:opacity .4s, transform .4s;
-}
-.service-card:hover .sc-bg-icon { opacity:0.1; transform:scale(1.1) rotate(-5deg); }
-
-.svc-icon {
-  width:60px; height:60px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border-radius:16px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:24px; margin-bottom:24px;
-  box-shadow:0 0 24px var(--glow-c);
-  transition:var(--transition);
-}
-.service-card:hover .svc-icon { transform:scale(1.1) rotate(-5deg); box-shadow:0 0 40px var(--glow-c); }
-.svc-icon.purple { background:linear-gradient(135deg,var(--accent2),var(--accent3)); box-shadow:0 0 24px var(--glow-p); }
-.svc-icon.orange { background:linear-gradient(135deg,var(--accent3),#ef4444); box-shadow:0 0 24px rgba(249,115,22,0.3); }
-
-.svc-title { font-size:20px; font-weight:900; margin-bottom:12px; }
-.svc-desc { font-size:14px; color:var(--muted); line-height:1.8; }
-
-/* ============================================================
-   CONTACT
-============================================================ */
-#contact { background:var(--bg); }
-.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
-
-.contact-left h2 { font-size:clamp(36px,4vw,56px); font-weight:900; line-height:1.1; margin-bottom:20px; }
-.contact-left p { font-size:16px; color:var(--muted); line-height:1.9; margin-bottom:40px; }
-
-.contact-items { display:flex; flex-direction:column; gap:16px; }
-.contact-item {
-  display:flex; align-items:center; gap:18px;
-  padding:20px 24px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  text-decoration:none; color:var(--text);
-  transition:var(--transition);
-}
-.contact-item:hover { border-color:rgba(0,255,255,0.2); transform:translateX(8px); background:var(--surface2); box-shadow:0 10px 30px rgba(0,0,0,0.3); }
-.ci-icon {
-  width:48px; height:48px;
-  background:rgba(0,255,255,0.08);
   border-radius:12px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:18px; color:var(--accent);
-  flex-shrink:0; transition:var(--transition);
+  padding:24px;
+  transition:all 0.3s;
+  position:relative;
+  overflow:hidden;
 }
-.contact-item:hover .ci-icon { background:rgba(0,255,255,0.15); transform:scale(1.1); }
-.ci-icon.whatsapp-icon { background:rgba(34,197,94,0.1); color:#22c55e; }
-.ci-icon.li-icon { background:rgba(14,118,168,0.1); color:#0ea5e9; }
-.ci-label { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:3px; }
-.ci-val { font-size:15px; font-weight:700; }
+.cert-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(34,211,238,0.03),transparent); opacity:0; transition:opacity 0.3s; }
+.cert-card:hover { border-color:rgba(34,211,238,0.2); transform:translateY(-4px); box-shadow:0 20px 40px rgba(0,0,0,0.4); }
+.cert-card:hover::before { opacity:1; }
+.cert-badge { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:50px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px; }
+.badge-thm { background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.15); color:var(--red); }
+.badge-ua { background:rgba(192,132,252,0.08); border:1px solid rgba(192,132,252,0.15); color:var(--purple); }
+.badge-other { background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.15); color:var(--green); }
+.cert-name { font-family:'Syne',sans-serif; font-size:16px; font-weight:800; color:var(--text); margin-bottom:8px; line-height:1.3; }
+.cert-date { font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); }
+.cert-emoji { font-size:32px; position:absolute; bottom:16px; right:16px; opacity:0.15; }
 
-/* Contact Form */
-.contact-form {
+/* THM STATS BANNER */
+.thm-banner {
+  background: linear-gradient(135deg, #050d1a, #0a1628);
+  border: 1px solid rgba(248,113,113,0.15);
+  border-radius: 16px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.thm-banner::before { content:''; position:absolute; top:-80px; right:80px; width:250px; height:250px; background:radial-gradient(circle,rgba(248,113,113,0.08),transparent 70%); }
+
+/* PROJECTS */
+.project-card {
   background:var(--surface);
   border:1px solid var(--border);
-  border-radius:24px;
+  border-radius:16px;
   padding:40px;
-}
-.form-title { font-size:22px; font-weight:900; margin-bottom:28px; }
-.form-group { margin-bottom:20px; }
-.form-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:2px; text-transform:uppercase; display:block; margin-bottom:8px; }
-.form-input, .form-textarea {
-  width:100%; padding:14px 18px;
-  background:rgba(255,255,255,0.04);
-  border:1.5px solid var(--border);
-  border-radius:10px;
-  color:var(--text);
-  font-family:'Cabinet Grotesk',sans-serif;
-  font-size:15px;
-  transition:var(--transition);
-  outline:none;
-  resize:none;
-}
-.form-input::placeholder, .form-textarea::placeholder { color:var(--muted); }
-.form-input:focus, .form-textarea:focus { border-color:rgba(0,255,255,0.4); background:rgba(0,255,255,0.03); box-shadow:0 0 20px rgba(0,255,255,0.05); }
-.form-textarea { height:130px; }
-.form-submit {
-  width:100%;
-  padding:16px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#000;
-  font-family:'Cabinet Grotesk',sans-serif;
-  font-size:14px; font-weight:900;
-  letter-spacing:2px; text-transform:uppercase;
-  border:none; border-radius:10px;
-  cursor:none; transition:var(--transition);
-}
-.form-submit:hover { opacity:0.9; transform:translateY(-2px); box-shadow:0 0 40px var(--glow-c); }
-
-/* ============================================================
-   FLOATING BUTTONS
-============================================================ */
-.float-btns {
-  position:fixed; right:28px; bottom:28px; z-index:200;
-  display:flex; flex-direction:column; gap:12px;
-  align-items:flex-end;
-}
-
-.float-btn {
-  width:56px; height:56px;
-  border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:22px;
-  text-decoration:none; color:#fff;
-  transition:var(--transition);
-  cursor:none;
+  margin-bottom:20px;
+  transition:all 0.4s;
   position:relative;
+  overflow:hidden;
 }
-.float-btn:hover { transform:scale(1.15); }
-.float-btn:hover .float-tooltip { opacity:1; transform:translateX(0); pointer-events:all; }
+.project-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(34,211,238,0.02),rgba(192,132,252,0.02)); opacity:0; transition:opacity 0.4s; }
+.project-card:hover { border-color:rgba(34,211,238,0.15); transform:translateY(-6px); box-shadow:0 40px 80px rgba(0,0,0,0.4); }
+.project-card:hover::before { opacity:1; }
+.proj-tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.proj-tag { padding:4px 12px; border-radius:50px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; border:1px solid; }
+.proj-title { font-family:'Syne',sans-serif; font-size:clamp(20px,2.5vw,28px); font-weight:900; color:var(--text); margin-bottom:8px; }
+.proj-sub { font-family:'Space Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; }
+.proj-desc { font-size:15px; color:var(--muted); line-height:1.8; margin-bottom:28px; max-width:600px; }
+.proj-features { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:28px; }
+.feat { padding:12px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px; }
+.feat-icon { font-size:16px; margin-bottom:4px; }
+.feat-name { font-size:12px; font-weight:600; color:var(--text); }
+.feat-desc { font-size:10px; color:var(--muted); }
+.proj-links { display:flex; gap:12px; }
 
-.float-tooltip {
-  position:absolute; right:68px; top:50%; transform:translateY(-50%) translateX(10px);
-  background:var(--surface2);
+/* CONTACT */
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+.contact-items { display:flex; flex-direction:column; gap:12px; }
+.contact-item {
+  display:flex; align-items:center; gap:16px;
+  padding:18px 20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  text-decoration:none;
+  transition:all 0.3s;
+}
+.contact-item:hover { border-color:rgba(34,211,238,0.2); transform:translateX(6px); background:var(--surface2); }
+.ci-icon { width:40px; height:40px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.ci-text { flex:1; }
+.ci-label { font-family:'Space Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:3px; }
+.ci-value { font-size:14px; color:var(--text); font-weight:500; }
+.ci-arrow { color:var(--muted); font-size:12px; transition:transform 0.3s; }
+.contact-item:hover .ci-arrow { transform:translateX(4px); color:var(--cyan); }
+
+/* FORM */
+.form-group { margin-bottom:20px; }
+.form-label { font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; display:block; margin-bottom:8px; }
+.form-input, .form-textarea {
+  width:100%;
+  background:var(--surface);
   border:1px solid var(--border);
   border-radius:8px;
-  padding:6px 14px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px; color:var(--text);
-  white-space:nowrap;
-  opacity:0; pointer-events:none;
-  transition:var(--transition);
+  padding:14px 16px;
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  outline:none;
+  transition:border-color 0.3s;
 }
+.form-input:focus, .form-textarea:focus { border-color:rgba(34,211,238,0.3); }
+.form-textarea { height:120px; resize:vertical; }
 
-.float-whatsapp {
-  background:linear-gradient(135deg,#22c55e,#16a34a);
-  box-shadow:0 4px 20px rgba(34,197,94,0.4);
-  animation:wa-pulse 3s ease-in-out infinite;
+/* FOOTER */
+footer {
+  border-top:1px solid var(--border);
+  padding:40px 48px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  max-width:1200px;
+  margin:0 auto;
 }
-@keyframes wa-pulse { 0%,100%{box-shadow:0 4px 20px rgba(34,197,94,0.4)} 50%{box-shadow:0 4px 40px rgba(34,197,94,0.7)} }
-.float-whatsapp:hover { box-shadow:0 8px 40px rgba(34,197,94,0.7); }
+.footer-copy { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); }
+.footer-social { display:flex; gap:12px; }
+.social-btn {
+  width:36px; height:36px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:14px;
+  transition:all 0.3s;
+}
+.social-btn:hover { border-color:var(--cyan); color:var(--cyan); transform:translateY(-3px); }
 
-.float-scroll-top {
+/* WA BUTTON */
+.wa-btn {
+  position:fixed;
+  bottom:32px; right:32px;
+  width:56px; height:56px;
+  background:#25D366;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff;
+  font-size:24px;
+  text-decoration:none;
+  z-index:500;
+  box-shadow:0 8px 30px rgba(37,211,102,0.4);
+  transition:all 0.3s;
+  animation:wa-pulse 3s infinite;
+}
+@keyframes wa-pulse { 0%,100%{box-shadow:0 8px 30px rgba(37,211,102,0.4);} 50%{box-shadow:0 8px 50px rgba(37,211,102,0.7);} }
+.wa-btn:hover { transform:scale(1.1) translateY(-4px); }
+
+/* MARQUEE */
+.marquee-wrap { padding:20px 0; overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--surface); }
+.marquee { display:flex; gap:0; animation:marquee 25s linear infinite; white-space:nowrap; }
+.marquee-item { display:inline-flex; align-items:center; gap:16px; padding:0 32px; font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:3px; text-transform:uppercase; }
+.marquee-sep { color:var(--cyan); }
+@keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* BACK TO TOP */
+#back-top {
+  position:fixed;
+  bottom:32px; left:32px;
   width:44px; height:44px;
   background:var(--surface);
   border:1px solid var(--border);
-  font-size:16px; color:var(--muted);
-  opacity:0; transition:var(--transition);
-}
-.float-scroll-top.show { opacity:1; }
-.float-scroll-top:hover { border-color:var(--accent); color:var(--accent); background:rgba(0,255,255,0.05); }
-
-/* ============================================================
-   FOOTER
-============================================================ */
-footer {
-  background:var(--surface);
-  border-top:1px solid var(--border);
-  padding:40px 60px;
-  position:relative; z-index:1;
-  display:flex; align-items:center; justify-content:space-between;
-  flex-wrap:wrap; gap:20px;
-}
-.footer-brand {
-  font-family:'JetBrains Mono',monospace;
-  font-size:13px; color:var(--accent); letter-spacing:3px;
-}
-.footer-copy { font-size:13px; color:var(--muted); }
-.footer-social { display:flex; gap:12px; }
-.footer-social-btn {
-  width:40px; height:40px;
-  border:1px solid var(--border);
-  border-radius:10px;
+  border-radius:8px;
   display:flex; align-items:center; justify-content:center;
-  color:var(--muted); font-size:15px;
-  text-decoration:none; transition:var(--transition);
+  color:var(--muted);
+  font-size:16px;
+  cursor:pointer;
+  z-index:500;
+  opacity:0;
+  transform:translateY(20px);
+  transition:all 0.3s;
+  text-decoration:none;
 }
-.footer-social-btn:hover { border-color:var(--accent); color:var(--accent); background:rgba(0,255,255,0.06); transform:translateY(-3px); }
+#back-top.show { opacity:1; transform:translateY(0); }
+#back-top:hover { border-color:var(--cyan); color:var(--cyan); }
 
-.footer-status { display:flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--green); letter-spacing:2px; }
-.footer-status-dot { width:8px; height:8px; background:var(--green); border-radius:50%; animation:ping 2s infinite; }
-
-/* ============================================================
-   KEYFRAMES
-============================================================ */
-@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
-@keyframes fadeIn { from{opacity:0} to{opacity:1} }
-
-/* ============================================================
-   RESPONSIVE
-============================================================ */
-@media(max-width:1024px) {
-  .hero-inner { grid-template-columns:1fr; }
-  .hero-right { display:none; }
-  .about-grid { grid-template-columns:1fr; }
-  .services-grid { grid-template-columns:1fr 1fr; }
-  .contact-grid { grid-template-columns:1fr; }
-}
-@media(max-width:768px) {
-  nav { padding:0 24px; }
-  .nav-links, .nav-hire { display:none; }
-  .hamburger { display:flex; }
-  .section { padding:80px 24px; }
+/* RESPONSIVE */
+@media(max-width:900px) {
+  nav { padding:16px 24px; }
+  .nav-links { display:none; }
   #hero { padding:100px 24px 60px; }
-  .hero-stats { gap:24px; }
-  .services-grid { grid-template-columns:1fr; }
-  footer { padding:32px 24px; flex-direction:column; text-align:center; }
-  .stats-strip { padding:32px 24px; }
+  .hero-grid { grid-template-columns:1fr; }
+  .hero-card { display:none; }
+  .hero-stats { grid-template-columns:repeat(2,1fr); }
+  .section { padding:60px 24px; }
+  .about-grid,.contact-grid,.proj-features { grid-template-columns:1fr; }
+  .certs-grid { grid-template-columns:repeat(2,1fr); }
+  .skills-grid { grid-template-columns:1fr; }
+  .thm-banner { grid-template-columns:1fr; }
+  .cgpa-grid { grid-template-columns:repeat(2,1fr); }
+  footer { flex-direction:column; gap:16px; text-align:center; }
 }
 </style>
 </head>
 <body>
 
-<!-- Loader -->
-<div id="loader">
-  <div class="loader-logo">Initializing Portfolio...</div>
-  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
-</div>
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-<!-- Cursor -->
-<div class="cur" id="curDot"><div class="cur-dot"></div></div>
-<div class="cur" id="curRing"><div class="cur-ring"></div></div>
+<!-- WA BUTTON -->
+<a href="https://wa.me/923101050497" target="_blank" class="wa-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
-<!-- Particles Canvas -->
-<canvas id="particles-canvas"></canvas>
+<!-- BACK TO TOP -->
+<a href="#hero" id="back-top"><i class="fas fa-arrow-up"></i></a>
 
-<!-- ============================================================
-     NAVIGATION
-============================================================ -->
+<!-- NAV -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-bracket">[</span>MAI<span class="nav-logo-bracket">]</span>
-  </a>
+  <a href="#hero" class="nav-logo">MAI.dev</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#certifications">Certs</a></li>
-    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="https://wa.me/923101050497" target="_blank" class="nav-hire">Hire Me 🚀</a>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about" onclick="closeMobile()">About</a>
-  <a href="#skills" onclick="closeMobile()">Skills</a>
-  <a href="#education" onclick="closeMobile()">Education</a>
-  <a href="#certifications" onclick="closeMobile()">Certs</a>
-  <a href="#services" onclick="closeMobile()">Services</a>
-  <a href="#contact" onclick="closeMobile()">Contact</a>
-</div>
-
-<!-- ============================================================
-     HERO
-============================================================ -->
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-bg-mesh"></div>
-  <div class="hero-grid-lines"></div>
-
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        <span>Available for Opportunities</span>
-      </div>
-
+  <div class="grid-bg"></div>
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag"><span class="hero-tag-dot"></span> Available for Internships & Freelance</div>
       <h1 class="hero-name">
-        <span class="first">Muhammad</span>
-        <span class="last">Ahsan Iqbal</span>
+        Muhammad<br>
+        <span class="line2">Ahsan Iqbal</span>
       </h1>
-
-      <div class="hero-typed-wrap">
-        <span class="hero-typed-prefix">$ whoami →</span>
-        <span id="typed-text"></span>
-        <span class="typed-cursor"></span>
+      <div class="hero-roles">
+        <div class="hero-roles-inner">
+          <div>// Cybersecurity Enthusiast</div>
+          <div>// Penetration Tester (Learning)</div>
+          <div>// Software Engineer</div>
+          <div>// Red Team Aspirant</div>
+          <div>// Hafiz-e-Quran 🕌</div>
+        </div>
       </div>
-
       <p class="hero-desc">
-        Passionate <strong>BS Software Engineering</strong> student at <strong>COMSATS University</strong>. Specializing in <strong>Cybersecurity</strong>, Ethical Hacking & full-stack development. On a mission to <span class="highlight" style="color:var(--accent)">secure the digital world</span> — one line of code at a time.
+        First-year <strong>BS Software Engineering</strong> student at COMSATS University Islamabad, Sahiwal Campus. Passionate about <strong>cybersecurity, ethical hacking</strong>, and software development. Ranked <strong>Top 15%</strong> on TryHackMe globally with a 47-day streak. Building skills from zero through hands-on labs, certifications, and real projects.
       </p>
-
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-glow"><i class="fas fa-paper-plane"></i> Get In Touch</a>
-        <a href="#certifications" class="btn btn-outline"><i class="fas fa-certificate"></i> View Certs</a>
-        <a href="https://wa.me/923101050497" target="_blank" class="btn btn-outline" style="border-color:rgba(34,197,94,0.3);color:#22c55e;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+        <a href="https://hmaicatsec-rgb.github.io/portfolio" class="btn-outline"><i class="fas fa-globe"></i> Portfolio</a>
+        <a href="https://wa.me/923101050497" target="_blank" class="btn-outline" style="border-color:rgba(37,211,102,0.3);color:#4ade80;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
       </div>
-
       <div class="hero-stats">
-        <div>
-          <div class="hero-stat-num">10+</div>
-          <div class="hero-stat-label">Certifications</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">4</div>
-          <div class="hero-stat-label">THM Paths</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">5+</div>
-          <div class="hero-stat-label">Languages</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">∞</div>
-          <div class="hero-stat-label">Ambition</div>
-        </div>
+        <div class="stat"><div class="stat-num">3.49</div><div class="stat-label">CGPA</div></div>
+        <div class="stat"><div class="stat-num">Top 15%</div><div class="stat-label">TryHackMe</div></div>
+        <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Certificates</div></div>
+        <div class="stat"><div class="stat-num">47</div><div class="stat-label">Day Streak</div></div>
       </div>
     </div>
 
-    <div class="hero-right">
-      <div class="profile-card" id="profileCard">
-        <div class="profile-card-glow g1"></div>
-        <div class="profile-card-glow g2"></div>
-
-        <div class="avatar-wrap">MAI</div>
-        <div class="pc-name">Muhammad Ahsan Iqbal</div>
-        <div class="pc-role">Software Engineer · Security Researcher</div>
-
-        <div class="pc-info-grid">
-          <div class="pc-info-item">
-            <div class="pc-info-label">Status</div>
-            <div class="pc-info-val" style="color:#22c55e;">🟢 Open</div>
+    <!-- Terminal Card -->
+    <div class="hero-card">
+      <div class="card-bar">
+        <div class="card-dot" style="background:#f87171;"></div>
+        <div class="card-dot" style="background:#fbbf24;"></div>
+        <div class="card-dot" style="background:#4ade80;"></div>
+        <span class="card-bar-title">profile.json</span>
+      </div>
+      <div class="card-body">
+        <span class="c-bracket">{</span><br>
+        &nbsp;&nbsp;<span class="c-key">"name"</span>: <span class="c-str">"Muhammad Ahsan Iqbal"</span>,<br>
+        &nbsp;&nbsp;<span class="c-key">"alias"</span>: <span class="c-str">"Cat.Sec"</span>,<br>
+        &nbsp;&nbsp;<span class="c-key">"age"</span>: <span class="c-num">20</span>,<br>
+        &nbsp;&nbsp;<span class="c-key">"location"</span>: <span class="c-str">"Vehari, Pakistan 🇵🇰"</span>,<br>
+        &nbsp;&nbsp;<span class="c-key">"hafiz"</span>: <span class="c-bool">true</span>,<span class="c-comment"> // Since 2019</span><br>
+        &nbsp;&nbsp;<span class="c-key">"cgpa"</span>: <span class="c-num">3.49</span>,<br>
+        &nbsp;&nbsp;<span class="c-key">"thm_rank"</span>: <span class="c-str">"Top 15%"</span>,<br>
+        &nbsp;&nbsp;<span class="c-key">"streak"</span>: <span class="c-num">47</span>,<span class="c-comment"> // days 🔥</span><br>
+        &nbsp;&nbsp;<span class="c-key">"goal"</span>: <span class="c-str">"Pentester + Dev"</span>,<br>
+        &nbsp;&nbsp;<span class="c-key">"open_to"</span>: <span class="c-bool">true</span><span class="c-comment"> // internships</span><br>
+        <span class="c-bracket">}</span>
+      </div>
+      <!-- THM Badge -->
+      <div class="thm-card">
+        <img src="https://tryhackme-badges.s3.amazonaws.com/Cat.Sec.png" alt="THM Badge" style="height:50px;border-radius:6px;">
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Live Stats</div>
+          <div class="thm-stats">
+            <div class="thm-stat"><div class="thm-stat-n" style="color:var(--orange);">Top 15%</div><div class="thm-stat-l">Rank</div></div>
+            <div class="thm-stat"><div class="thm-stat-n">47</div><div class="thm-stat-l">Streak</div></div>
+            <div class="thm-stat"><div class="thm-stat-n" style="color:var(--purple);">11</div><div class="thm-stat-l">Badges</div></div>
           </div>
-          <div class="pc-info-item">
-            <div class="pc-info-label">Location</div>
-            <div class="pc-info-val">📍 Vehari, PK</div>
-          </div>
-          <div class="pc-info-item">
-            <div class="pc-info-label">University</div>
-            <div class="pc-info-val">🎓 COMSATS</div>
-          </div>
-          <div class="pc-info-item">
-            <div class="pc-info-label">Year</div>
-            <div class="pc-info-val">📅 2024–Now</div>
-          </div>
-        </div>
-
-        <div class="pc-divider"></div>
-
-        <div class="pc-skills-row">
-          <span class="pc-skill-tag">Python</span>
-          <span class="pc-skill-tag">C++</span>
-          <span class="pc-skill-tag purple">PenTest</span>
-          <span class="pc-skill-tag purple">RedTeam</span>
-          <span class="pc-skill-tag">HTML/CSS</span>
-          <span class="pc-skill-tag purple">ML/AI</span>
-          <span class="pc-skill-tag">Java</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     MARQUEE
-============================================================ -->
-<div class="marquee-section">
-  <div class="marquee-track" id="marquee">
-    <div class="marquee-item"><span class="dot">✦</span> Penetration Testing</div>
-    <div class="marquee-item"><span class="dot">✦</span> Python Development</div>
-    <div class="marquee-item"><span class="dot">✦</span> Red Teaming</div>
-    <div class="marquee-item"><span class="dot">✦</span> Web Security</div>
-    <div class="marquee-item"><span class="dot">✦</span> Machine Learning</div>
-    <div class="marquee-item"><span class="dot">✦</span> Data Science</div>
-    <div class="marquee-item"><span class="dot">✦</span> Software Engineering</div>
-    <div class="marquee-item"><span class="dot">✦</span> Ethical Hacking</div>
-    <div class="marquee-item"><span class="dot">✦</span> C++ / DSA</div>
-    <div class="marquee-item"><span class="dot">✦</span> Java OOP</div>
-    <div class="marquee-item"><span class="dot">✦</span> Penetration Testing</div>
-    <div class="marquee-item"><span class="dot">✦</span> Python Development</div>
-    <div class="marquee-item"><span class="dot">✦</span> Red Teaming</div>
-    <div class="marquee-item"><span class="dot">✦</span> Web Security</div>
-    <div class="marquee-item"><span class="dot">✦</span> Machine Learning</div>
-    <div class="marquee-item"><span class="dot">✦</span> Data Science</div>
-    <div class="marquee-item"><span class="dot">✦</span> Software Engineering</div>
-    <div class="marquee-item"><span class="dot">✦</span> Ethical Hacking</div>
-    <div class="marquee-item"><span class="dot">✦</span> C++ / DSA</div>
-    <div class="marquee-item"><span class="dot">✦</span> Java OOP</div>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span class="marquee-item">Penetration Testing <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Ethical Hacking <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Java Development <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Python <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">SQL Databases <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Red Teaming <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Web App Security <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">TryHackMe Top 15% <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Hafiz-e-Quran 🕌 <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Penetration Testing <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Ethical Hacking <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Java Development <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Python <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">SQL Databases <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Red Teaming <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Web App Security <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">TryHackMe Top 15% <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Hafiz-e-Quran 🕌 <span class="marquee-sep">✦</span></span>
   </div>
 </div>
 
-<!-- ============================================================
-     ABOUT
-============================================================ -->
-<section id="about" class="section section-alt">
-  <div class="sec-label">01 // About</div>
-  <h2 class="sec-title reveal">The Story <span class="grad">Behind the Code</span></h2>
-  <div class="about-grid">
-    <div class="reveal-left">
-      <p>
-        I'm <strong>Muhammad Ahsan Iqbal</strong> — a <strong>first-year Software Engineering student</strong> at COMSATS University Islamabad, Sahiwal Campus, with a burning passion for <span class="highlight" style="color:var(--accent)">cybersecurity</span> and building impactful software.
-      </p>
-      <p>
-        My journey started with curiosity — why do systems fail? How do attackers think? That curiosity led me to platforms like <strong>TryHackMe</strong> where I've been mastering penetration testing, red teaming, and web application security.
-      </p>
-      <p>
-        Beyond security, I'm continuously leveling up my skills in <strong>Python, Java, C++, HTML/CSS</strong>, and exploring the fascinating worlds of <strong>Machine Learning & AI</strong> — building a well-rounded foundation to tackle real-world challenges.
-      </p>
-
-      <div class="about-lang-section">
-        <div class="lang-title">Languages Spoken</div>
-        <div class="lang-grid">
-          <div class="lang-item"><span class="lang-name">🇵🇰 Punjabi</span><span class="lang-badge badge-adv">Advanced</span></div>
-          <div class="lang-item"><span class="lang-name">🇵🇰 Urdu</span><span class="lang-badge badge-int">Intermediate</span></div>
-          <div class="lang-item"><span class="lang-name">🇬🇧 English</span><span class="lang-badge badge-beg">Beginner</span></div>
-          <div class="lang-item"><span class="lang-name">🇩🇪 German</span><span class="lang-badge badge-beg">Beginner</span></div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section">
+    <div class="sec-label">01 // About</div>
+    <h2 class="sec-title">Who <span class="accent">I Am</span></h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm <strong>Muhammad Ahsan Iqbal</strong>, a passionate first-year BS Software Engineering student at COMSATS University Islamabad, Sahiwal Campus. I'm deeply interested in the intersection of <strong>cybersecurity and software development</strong>.</p>
+        <p>My journey into tech started early. I completed my <strong>Hifz-e-Quran in 2019 at age 14</strong> — a discipline that taught me focus, dedication, and consistency. These same qualities now drive my learning in cybersecurity.</p>
+        <div class="about-highlight">
+          🎯 Currently working through TryHackMe's Penetration Tester path<br>
+          🔐 Learning Web App Security, Red Teaming & Network Hacking<br>
+          💻 Building real projects with Java, Python & SQL
         </div>
+        <p>Despite being in my first year of university, I'm already ranked in the <strong>Top 15% globally</strong> on TryHackMe — a platform with over 3 million users. I believe in learning by doing and building from zero.</p>
       </div>
-    </div>
-
-    <div class="reveal-right">
-      <div class="about-terminal">
-        <div class="terminal-topbar">
-          <div class="tb-dot r"></div>
-          <div class="tb-dot y"></div>
-          <div class="tb-dot g"></div>
-          <div class="tb-title">ahsan@portfolio ~ whoami</div>
+      <div class="reveal">
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label">Name</div><div class="info-value">Muhammad Ahsan Iqbal</div></div>
+          <div class="info-item"><div class="info-label">Alias</div><div class="info-value">Cat.Sec 🐱</div></div>
+          <div class="info-item"><div class="info-label">Age</div><div class="info-value">20 years (July 19, 2005)</div></div>
+          <div class="info-item"><div class="info-label">Location</div><div class="info-value">Vehari, Punjab 🇵🇰</div></div>
+          <div class="info-item"><div class="info-label">University</div><div class="info-value">COMSATS Sahiwal</div></div>
+          <div class="info-item"><div class="info-label">Program</div><div class="info-value">BS Software Engineering</div></div>
+          <div class="info-item"><div class="info-label">CGPA</div><div class="info-value" style="color:var(--cyan);">3.49 / 4.0</div></div>
+          <div class="info-item"><div class="info-label">Status</div><div class="info-value" style="color:var(--green);">Open to Internships ✅</div></div>
+          <div class="info-item"><div class="info-label">Email</div><div class="info-value">hmai.catsec@gmail.com</div></div>
+          <div class="info-item"><div class="info-label">Achievement</div><div class="info-value">Hafiz-e-Quran 🕌 (2019)</div></div>
         </div>
-        <div class="terminal-body">
-          <div class="t-line"><span class="t-prompt">const </span><span class="t-cmd">ahsan</span><span class="t-prompt"> = </span><span class="t-cmd">{</span></div>
-          <div class="t-line">&nbsp;&nbsp;<span class="t-key">name:</span> <span class="t-string">"Muhammad Ahsan Iqbal"</span>,</div>
-          <div class="t-line">&nbsp;&nbsp;<span class="t-key">role:</span> <span class="t-string">"SE Student & Security Researcher"</span>,</div>
-          <div class="t-line">&nbsp;&nbsp;<span class="t-key">university:</span> <span class="t-string">"COMSATS Sahiwal"</span>,</div>
-          <div class="t-line">&nbsp;&nbsp;<span class="t-key">location:</span> <span class="t-string">"Vehari, Punjab 🇵🇰"</span>,</div>
-          <div class="t-line">&nbsp;&nbsp;<span class="t-key">focus:</span> <span class="t-string">["Cybersecurity", "AI", "Dev"]</span>,</div>
-          <div class="t-line">&nbsp;&nbsp;<span class="t-key">status:</span> <span class="t-val">"open_to_opportunities"</span>,</div>
-          <div class="t-line">&nbsp;&nbsp;<span class="t-key">email:</span> <span class="t-string">"hmai.arain@gmail.com"</span>,</div>
-          <div class="t-line">&nbsp;&nbsp;<span class="t-key">phone:</span> <span class="t-string">"03101050497"</span>,</div>
-          <div class="t-line">&nbsp;&nbsp;<span class="t-key">coffee:</span> <span class="t-val">true</span>, <span class="t-comment">// always</span></div>
-          <div class="t-line"><span class="t-cmd">};</span></div>
-          <div class="t-line" style="margin-top:12px;"><span class="t-prompt">// </span><span class="t-comment">Ready to make an impact 🚀</span></div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px;">
+          <div class="info-item"><div class="info-label">Languages</div><div class="info-value">Punjabi · Urdu · English · German (Basic)</div></div>
+          <div class="info-item"><div class="info-label">Interests</div><div class="info-value">Hacking · Coding · Security Research</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     SKILLS
-============================================================ -->
-<section id="skills" class="section">
-  <div class="sec-label">02 // Skills</div>
-  <h2 class="sec-title reveal">My <span class="grad">Expertise</span></h2>
-
-  <div class="skills-tabs reveal">
-    <button class="skill-tab active" onclick="switchTab('security',this)">🔐 Security</button>
-    <button class="skill-tab" onclick="switchTab('programming',this)">💻 Programming</button>
-    <button class="skill-tab" onclick="switchTab('web',this)">🌐 Web & Tools</button>
-    <button class="skill-tab" onclick="switchTab('ai',this)">🧠 AI & Data</button>
-    <button class="skill-tab" onclick="switchTab('soft',this)">🤝 Soft Skills</button>
-  </div>
-
-  <div id="panel-security" class="skills-panel active">
-    <div class="skill-card"><div class="sc-icon">🎯</div><div class="sc-name">Penetration Testing</div><div class="sc-level">Learning · THM Jr PenTest</div><div class="sc-bar"><div class="sc-fill" style="--w:40%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">🌐</div><div class="sc-name">Web App Security</div><div class="sc-level">Learning · THM Path</div><div class="sc-bar"><div class="sc-fill" style="--w:35%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">⚔️</div><div class="sc-name">Red Teaming</div><div class="sc-level">Learning · THM Path</div><div class="sc-bar"><div class="sc-fill" style="--w:30%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">🔒</div><div class="sc-name">Pre Security / Fundamentals</div><div class="sc-level">Certified · THM</div><div class="sc-bar"><div class="sc-fill" style="--w:65%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">🕵️</div><div class="sc-name">Web App Red Teaming</div><div class="sc-level">Learning · THM Path</div><div class="sc-bar"><div class="sc-fill" style="--w:28%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">🛡️</div><div class="sc-name">Health & Safety Awareness</div><div class="sc-level">Beginner</div><div class="sc-bar"><div class="sc-fill" style="--w:30%"></div></div></div>
-  </div>
-
-  <div id="panel-programming" class="skills-panel">
-    <div class="skill-card"><div class="sc-icon">🐍</div><div class="sc-name">Python</div><div class="sc-level">Beginner · Certified</div><div class="sc-bar"><div class="sc-fill" style="--w:45%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">☕</div><div class="sc-name">Java (OOP)</div><div class="sc-level">Beginner</div><div class="sc-bar"><div class="sc-fill" style="--w:35%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">⚡</div><div class="sc-name">C++ (DSA)</div><div class="sc-level">Beginner</div><div class="sc-bar"><div class="sc-fill" style="--w:32%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">🗄️</div><div class="sc-name">Database Management</div><div class="sc-level">Beginner</div><div class="sc-bar"><div class="sc-fill" style="--w:28%"></div></div></div>
-  </div>
-
-  <div id="panel-web" class="skills-panel">
-    <div class="skill-card"><div class="sc-icon">🌐</div><div class="sc-name">HTML & CSS</div><div class="sc-level">Beginner</div><div class="sc-bar"><div class="sc-fill" style="--w:42%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">🟦</div><div class="sc-name">WordPress</div><div class="sc-level">Beginner</div><div class="sc-bar"><div class="sc-fill" style="--w:30%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">📊</div><div class="sc-name">MS Office</div><div class="sc-level">Beginner</div><div class="sc-bar"><div class="sc-fill" style="--w:38%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">📈</div><div class="sc-name">Data Visualization (Python)</div><div class="sc-level">Beginner · Certified</div><div class="sc-bar"><div class="sc-fill" style="--w:35%"></div></div></div>
-  </div>
-
-  <div id="panel-ai" class="skills-panel">
-    <div class="skill-card"><div class="sc-icon">🤖</div><div class="sc-name">Artificial Intelligence</div><div class="sc-level">Beginner · Certified</div><div class="sc-bar"><div class="sc-fill" style="--w:30%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">🧠</div><div class="sc-name">Machine Learning</div><div class="sc-level">Beginner · Certified</div><div class="sc-bar"><div class="sc-fill" style="--w:28%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">📊</div><div class="sc-name">Data Science</div><div class="sc-level">Beginner · Certified</div><div class="sc-bar"><div class="sc-fill" style="--w:30%"></div></div></div>
-  </div>
-
-  <div id="panel-soft" class="skills-panel">
-    <div class="skill-card"><div class="sc-icon">🧩</div><div class="sc-name">Critical Thinking</div><div class="sc-level">Developing</div><div class="sc-bar"><div class="sc-fill" style="--w:60%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">💬</div><div class="sc-name">Communication</div><div class="sc-level">Developing</div><div class="sc-bar"><div class="sc-fill" style="--w:55%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">🎯</div><div class="sc-name">Problem Solving</div><div class="sc-level">Developing</div><div class="sc-bar"><div class="sc-fill" style="--w:58%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">👑</div><div class="sc-name">Leadership</div><div class="sc-level">Developing</div><div class="sc-bar"><div class="sc-fill" style="--w:45%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">👂</div><div class="sc-name">Active Listening</div><div class="sc-level">Developing</div><div class="sc-bar"><div class="sc-fill" style="--w:52%"></div></div></div>
-    <div class="skill-card"><div class="sc-icon">🤝</div><div class="sc-name">Team Building</div><div class="sc-level">Developing</div><div class="sc-bar"><div class="sc-fill" style="--w:48%"></div></div></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     EDUCATION
-============================================================ -->
-<section id="education" class="section section-alt">
-  <div class="sec-label">03 // Education</div>
-  <h2 class="sec-title reveal">Academic <span class="grad">Journey</span></h2>
-
-  <div class="edu-timeline">
-    <div class="edu-item reveal">
-      <div class="edu-dot"></div>
-      <div class="edu-year">Sep 2024 — Present</div>
-      <div class="edu-card">
-        <div class="edu-degree">🎓 BS Software Engineering</div>
-        <div class="edu-school">COMSATS University Islamabad, Sahiwal Campus · Punjab, Pakistan</div>
-        <span class="edu-status current"><span class="edu-status-dot"></span>Currently Enrolled · Year 1</span>
+<!-- SKILLS -->
+<section id="skills" style="background:var(--bg2);">
+  <div class="section">
+    <div class="sec-label">02 // Skills</div>
+    <h2 class="sec-title">Technical <span class="accent">Arsenal</span></h2>
+    <div class="skills-tabs reveal">
+      <button class="tab-btn active" onclick="showTab('security')">🔐 Security</button>
+      <button class="tab-btn" onclick="showTab('programming')">💻 Programming</button>
+      <button class="tab-btn" onclick="showTab('tools')">🛠️ Tools</button>
+      <button class="tab-btn" onclick="showTab('soft')">🧠 Soft Skills</button>
+    </div>
+    <div id="tab-security" class="tab-panel active reveal">
+      <div class="skills-grid">
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Penetration Testing</span><span class="skill-pct">45%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:45%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Web App Security</span><span class="skill-pct">40%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:40%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Network Security</span><span class="skill-pct">50%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:50%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Red Teaming</span><span class="skill-pct">25%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:25%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Linux / CLI</span><span class="skill-pct">55%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:55%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">CTF Challenges</span><span class="skill-pct">50%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:50%"></div></div></div>
       </div>
     </div>
-
-    <div class="edu-item reveal">
-      <div class="edu-dot"></div>
-      <div class="edu-year">May 2022 — Sep 2024</div>
-      <div class="edu-card">
-        <div class="edu-degree">💻 ICS — Intermediate in Computer Science</div>
-        <div class="edu-school">Govt. College Burewala · Burewala, Punjab</div>
-        <span class="edu-status done">✓ Completed</span>
+    <div id="tab-programming" class="tab-panel reveal">
+      <div class="skills-grid">
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Java (OOP)</span><span class="skill-pct">65%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:65%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">55%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:55%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">C++ / DSA</span><span class="skill-pct">50%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:50%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">SQL / Databases</span><span class="skill-pct">65%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:65%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">HTML / CSS</span><span class="skill-pct">60%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:60%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Data Structures</span><span class="skill-pct">60%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:60%"></div></div></div>
       </div>
     </div>
-
-    <div class="edu-item reveal">
-      <div class="edu-dot"></div>
-      <div class="edu-year">Mar 2020 — Aug 2022</div>
-      <div class="edu-card">
-        <div class="edu-degree">📚 Matriculation</div>
-        <div class="edu-school">Govt. M.C Model High School Burewala · Burewala, Punjab</div>
-        <span class="edu-status done">✓ Completed</span>
+    <div id="tab-tools" class="tab-panel reveal">
+      <div class="skills-grid">
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">TryHackMe</span><span class="skill-pct">Top 15%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Git / GitHub</span><span class="skill-pct">50%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:50%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Maven / Build Tools</span><span class="skill-pct">55%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:55%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">WordPress</span><span class="skill-pct">50%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:50%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">MS Office</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">IntelliJ / VSCode</span><span class="skill-pct">65%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:65%"></div></div></div>
+      </div>
+    </div>
+    <div id="tab-soft" class="tab-panel reveal">
+      <div class="skills-grid">
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Critical Thinking</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:80%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Problem Solving</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Self-Learning</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:90%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Consistency</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:85%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Communication</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:70%"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Teamwork</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     CERTIFICATIONS
-============================================================ -->
-<section id="certifications" class="section">
-  <div class="sec-label">04 // Certifications</div>
-  <h2 class="sec-title reveal">Earned <span class="grad">Credentials</span></h2>
-
-  <div class="certs-grid">
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-thm">🔴 TryHackMe · Cert</div><div class="cert-name">Jr Penetration Tester</div><div class="cert-date">Feb 2026</div><div class="cert-emoji">🎯</div></div>
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-thm">🔴 TryHackMe · Cert</div><div class="cert-name">Pre Security</div><div class="cert-date">Feb 2027</div><div class="cert-emoji">🔐</div></div>
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-thm">🔴 TryHackMe · Course</div><div class="cert-name">Web Application Pentesting</div><div class="cert-date">Feb 2027</div><div class="cert-emoji">🌐</div></div>
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-thm">🔴 TryHackMe · Course</div><div class="cert-name">Web Application Red Teaming</div><div class="cert-date">Feb 2027</div><div class="cert-emoji">⚔️</div></div>
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-thm">🔴 TryHackMe · Course</div><div class="cert-name">Red Teaming</div><div class="cert-date">Feb 2027</div><div class="cert-emoji">🕵️</div></div>
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-ua">📘 UniAthena</div><div class="cert-name">Basics of AI: Learning Models</div><div class="cert-date">Jan 2026</div><div class="cert-emoji">🤖</div></div>
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-ua">📘 UniAthena</div><div class="cert-name">Basics of Data Science</div><div class="cert-date">Jan 2026</div><div class="cert-emoji">📊</div></div>
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-ua">📘 UniAthena</div><div class="cert-name">Basics of Machine Learning Algorithms</div><div class="cert-date">Jan 2024</div><div class="cert-emoji">🧠</div></div>
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-ua">📘 UniAthena</div><div class="cert-name">Basics of Python</div><div class="cert-date">Jan 2024</div><div class="cert-emoji">🐍</div></div>
-    <div class="cert-card reveal"><div class="cert-platform-badge badge-ua">📘 UniAthena</div><div class="cert-name">Basics of Data Visualization Using Python</div><div class="cert-date">Jan 2024</div><div class="cert-emoji">📈</div></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     SERVICES
-============================================================ -->
-<section id="services" class="section section-alt">
-  <div class="sec-label">05 // Services</div>
-  <h2 class="sec-title reveal">What I Can <span class="grad">Do For You</span></h2>
-
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="sc-bg-icon">🔐</div>
-      <div class="svc-icon"><i class="fas fa-shield-alt"></i></div>
-      <div class="svc-title">Security Assessment</div>
-      <div class="svc-desc">Web application security testing, vulnerability assessment, and basic penetration testing using industry-standard methodologies learned through TryHackMe paths.</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="sc-bg-icon">💻</div>
-      <div class="svc-icon purple"><i class="fas fa-code"></i></div>
-      <div class="svc-title">Software Development</div>
-      <div class="svc-desc">Building applications using Python, Java, and C++. From simple scripts to OOP-based systems and data structures implementations with clean, readable code.</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="sc-bg-icon">🌐</div>
-      <div class="svc-icon orange"><i class="fas fa-globe"></i></div>
-      <div class="svc-title">Web Development</div>
-      <div class="svc-desc">Creating modern, responsive websites using HTML, CSS, and WordPress. Clean design, fast performance, and mobile-friendly layouts for personal and small business sites.</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="sc-bg-icon">🧠</div>
-      <div class="svc-icon"><i class="fas fa-brain"></i></div>
-      <div class="svc-title">AI & Data Analysis</div>
-      <div class="svc-desc">Applying machine learning basics and data visualization with Python (matplotlib, pandas) to derive insights from datasets and build simple predictive models.</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="sc-bg-icon">📊</div>
-      <div class="svc-icon purple"><i class="fas fa-chart-line"></i></div>
-      <div class="svc-title">Data Visualization</div>
-      <div class="svc-desc">Transforming raw data into compelling visual stories using Python libraries. Clear, insightful charts and dashboards that make complex data understandable.</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="sc-bg-icon">🤝</div>
-      <div class="svc-icon orange"><i class="fas fa-users"></i></div>
-      <div class="svc-title">Collaboration & Learning</div>
-      <div class="svc-desc">Open to joining teams, contributing to open-source projects, and collaborative learning. Bringing enthusiasm, fresh perspectives, and a growth mindset to every project.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CONTACT
-============================================================ -->
-<section id="contact" class="section">
-  <div class="sec-label">06 // Contact</div>
-  <div class="contact-grid">
-    <div class="reveal-left">
-      <h2>Let's Build <span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Something</span> Amazing</h2>
-      <p>I'm actively looking for internships, collaborations, and opportunities to grow. Whether you have a project idea, job opportunity, or just want to connect — I'd love to hear from you!</p>
-
-      <div class="contact-items">
-        <a href="mailto:hmai.arain@gmail.com" class="contact-item">
-          <div class="ci-icon"><i class="fas fa-envelope"></i></div>
-          <div><div class="ci-label">Email</div><div class="ci-val">hmai.arain@gmail.com</div></div>
-        </a>
-        <a href="https://wa.me/923101050497" target="_blank" class="contact-item">
-          <div class="ci-icon whatsapp-icon"><i class="fab fa-whatsapp"></i></div>
-          <div><div class="ci-label">WhatsApp</div><div class="ci-val">+92 310 1050497</div></div>
-        </a>
-        <a href="tel:03101050497" class="contact-item">
-          <div class="ci-icon"><i class="fas fa-phone"></i></div>
-          <div><div class="ci-label">Phone</div><div class="ci-val">0310-1050497</div></div>
-        </a>
-        <a href="https://linkedin.com/in/muhammad-ahsan-iqbal-9208973a7" target="_blank" class="contact-item">
-          <div class="ci-icon li-icon"><i class="fab fa-linkedin-in"></i></div>
-          <div><div class="ci-label">LinkedIn</div><div class="ci-val">muhammad-ahsan-iqbal</div></div>
-        </a>
-      </div>
-    </div>
-
-    <div class="reveal-right">
-      <div class="contact-form">
-        <div class="form-title">Send a Message 💬</div>
-        <div class="form-group">
-          <label class="form-label">Your Name</label>
-          <input type="text" class="form-input" placeholder="John Doe" id="formName">
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section">
+    <div class="sec-label">03 // Education</div>
+    <h2 class="sec-title">Academic <span class="accent">Journey</span></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;">
+      <div class="timeline">
+        <div class="t-item reveal">
+          <div class="t-date">2024 — Present</div>
+          <div class="t-title">BS Software Engineering</div>
+          <div class="t-sub">COMSATS University Islamabad, Sahiwal Campus</div>
+          <div class="t-grades">
+            <span class="t-grade">Reg: CIIT/FA24-BSE-123/SWL</span>
+            <span class="t-grade orange">4th Semester</span>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" placeholder="john@example.com" id="formEmail">
+        <div class="t-item reveal">
+          <div class="t-date">2022 — 2024</div>
+          <div class="t-title">ICS (Intermediate)</div>
+          <div class="t-sub">Govt. Graduate College Burewala</div>
+          <div class="t-grades">
+            <span class="t-grade">853 / 1200</span>
+            <span class="t-grade purple">Computer Science</span>
+            <span class="t-grade green">Passed ✅</span>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Message</label>
-          <textarea class="form-textarea" placeholder="Tell me about your project or opportunity..." id="formMsg"></textarea>
+        <div class="t-item reveal">
+          <div class="t-date">2019</div>
+          <div class="t-title">Hafiz-e-Quran 🕌</div>
+          <div class="t-sub">Wifaq ul Madaris al-Arabia — Grade: Mumtaz (Excellent)</div>
+          <div class="t-grades">
+            <span class="t-grade green">Completed at age 14 🏆</span>
+          </div>
         </div>
-        <button class="form-submit" onclick="sendMessage()">
-          <i class="fas fa-paper-plane" style="margin-right:8px"></i> Send Message
-        </button>
+        <div class="t-item reveal">
+          <div class="t-date">2020 — 2022</div>
+          <div class="t-title">Matriculation</div>
+          <div class="t-sub">Govt. M.C Model High School Burewala</div>
+          <div class="t-grades"><span class="t-grade green">Passed ✅</span></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;">University CGPA Progress</div>
+        <div class="cgpa-grid">
+          <div class="cgpa-item"><div class="cgpa-sem">Fall 2024<br>Sem 1</div><div class="cgpa-num">3.41</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--green);margin-top:4px;">GAS ✓</div></div>
+          <div class="cgpa-item"><div class="cgpa-sem">Spring 2025<br>Sem 2</div><div class="cgpa-num">3.55</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--green);margin-top:4px;">GAS ✓</div></div>
+          <div class="cgpa-item"><div class="cgpa-sem">Fall 2025<br>Sem 3</div><div class="cgpa-num">3.51</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--green);margin-top:4px;">GAS ✓</div></div>
+          <div class="cgpa-item" style="border-color:rgba(34,211,238,0.2);"><div class="cgpa-sem">Spring 2026<br>Sem 4</div><div class="cgpa-num" style="color:var(--orange);">🔄</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--orange);margin-top:4px;">Current</div></div>
+        </div>
+        <div style="margin-top:24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;">
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Current Semester Subjects</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--text);">Information Security</span><span style="color:var(--cyan);font-family:'Space Mono',monospace;font-size:11px;">CSC232</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--text);">Artificial Intelligence</span><span style="color:var(--cyan);font-family:'Space Mono',monospace;font-size:11px;">CSC262</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--text);">Computer Networks</span><span style="color:var(--cyan);font-family:'Space Mono',monospace;font-size:11px;">CSC275</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--text);">Software Req. Engineering</span><span style="color:var(--cyan);font-family:'Space Mono',monospace;font-size:11px;">CSE305</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--text);">Expository Writing</span><span style="color:var(--cyan);font-family:'Space Mono',monospace;font-size:11px;">HUM120</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     FOOTER
-============================================================ -->
-<footer>
-  <div class="footer-brand">[MAI] Portfolio</div>
-  <div class="footer-copy">© 2025 Muhammad Ahsan Iqbal · All rights reserved</div>
-  <div class="footer-social">
-    <a href="https://linkedin.com/in/muhammad-ahsan-iqbal-9208973a7" target="_blank" class="footer-social-btn"><i class="fab fa-linkedin-in"></i></a>
-    <a href="https://wa.me/923101050497" target="_blank" class="footer-social-btn" style="color:#22c55e;border-color:rgba(34,197,94,0.2)"><i class="fab fa-whatsapp"></i></a>
-    <a href="mailto:hmai.arain@gmail.com" class="footer-social-btn"><i class="fas fa-envelope"></i></a>
-  </div>
-  <div class="footer-status"><div class="footer-status-dot"></div>Open to Opportunities</div>
-</footer>
+<!-- CERTIFICATIONS -->
+<section id="certifications" style="background:var(--bg2);">
+  <div class="section">
+    <div class="sec-label">04 // Certifications</div>
+    <h2 class="sec-title">Earned <span class="accent">Credentials</span></h2>
 
-<!-- ============================================================
-     FLOATING BUTTONS
-============================================================ -->
-<div class="float-btns">
-  <button class="float-btn float-scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <div class="float-tooltip">Back to Top</div>
-    <i class="fas fa-arrow-up"></i>
-  </button>
-  <a href="https://wa.me/923101050497" target="_blank" class="float-btn float-whatsapp">
-    <div class="float-tooltip">Chat on WhatsApp</div>
-    <i class="fab fa-whatsapp"></i>
-  </a>
+    <!-- THM Banner -->
+    <div class="thm-banner reveal">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <span style="padding:4px 14px;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.15);border-radius:50px;font-family:'Space Mono',monospace;font-size:9px;color:var(--red);letter-spacing:2px;text-transform:uppercase;">🔴 TryHackMe</span>
+          <span style="display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:2px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;animation:ping 2s infinite;"></span>LIVE</span>
+        </div>
+        <h3 style="font-family:'Syne',sans-serif;font-size:26px;font-weight:900;color:var(--text);margin-bottom:6px;">Cat.Sec <span style="font-family:'Space Mono',monospace;font-size:14px;color:var(--muted);">[0x8][HACKER]</span></h3>
+        <p style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:24px;">Aspiring Ethical Hacker · COMSATS Sahiwal · Pakistan 🇵🇰</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="text-align:center;padding:12px 20px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;"><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:var(--orange);">Top 15%</div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:1.5px;margin-top:4px;">GLOBAL RANK</div></div>
+          <div style="text-align:center;padding:12px 20px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;"><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:var(--cyan);">47</div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:1.5px;margin-top:4px;">DAY STREAK 🔥</div></div>
+          <div style="text-align:center;padding:12px 20px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;"><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:var(--purple);">11</div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:1.5px;margin-top:4px;">BADGES 🏅</div></div>
+          <div style="text-align:center;padding:12px 20px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;"><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:var(--green);">47</div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:1.5px;margin-top:4px;">ROOMS DONE</div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <img src="https://tryhackme-badges.s3.amazonaws.com/Cat.Sec.png" alt="THM Badge" style="max-width:220px;border-radius:10px;border:1px solid rgba(248,113,113,0.15);">
+        <a href="https://tryhackme.com/p/Cat.Sec" target="_blank" class="btn-outline" style="font-size:11px;padding:8px 20px;border-color:rgba(248,113,113,0.2);color:var(--red);">🔴 View Profile</a>
+      </div>
+    </div>
+
+    <!-- Cert Cards -->
+    <div class="certs-grid">
+      <div class="cert-card reveal"><div class="cert-badge badge-thm">🔴 TryHackMe</div><div class="cert-name">Pre Security Learning Path</div><div class="cert-date">February 18, 2026</div><div class="cert-emoji">🔐</div></div>
+      <div class="cert-card reveal"><div class="cert-badge badge-ua">📘 UniAthena × Cambridge CIQ</div><div class="cert-name">Basics of Artificial Intelligence: Learning Models</div><div class="cert-date">January 22, 2026</div><div class="cert-emoji">🤖</div></div>
+      <div class="cert-card reveal"><div class="cert-badge badge-ua">📘 UniAthena × Cambridge CIQ</div><div class="cert-name">Basics of Machine Learning Algorithms</div><div class="cert-date">January 22, 2026</div><div class="cert-emoji">🧠</div></div>
+      <div class="cert-card reveal"><div class="cert-badge badge-ua">📘 UniAthena × Cambridge CIQ</div><div class="cert-name">Basics of Python</div><div class="cert-date">January 22, 2026</div><div class="cert-emoji">🐍</div></div>
+      <div class="cert-card reveal"><div class="cert-badge badge-ua">📘 UniAthena × Cambridge CIQ</div><div class="cert-name">Basics of Data Visualization Using Python</div><div class="cert-date">January 23, 2026</div><div class="cert-emoji">📊</div></div>
+      <div class="cert-card reveal"><div class="cert-badge badge-ua">📘 UniAthena × Cambridge CIQ</div><div class="cert-name">Basics of Data Science</div><div class="cert-date">January 23, 2026</div><div class="cert-emoji">📈</div></div>
+      <div class="cert-card reveal" style="border-color:rgba(34,211,238,0.08);"><div class="cert-badge" style="background:rgba(34,211,238,0.06);border-color:rgba(34,211,238,0.15);color:var(--cyan);">🔄 In Progress</div><div class="cert-name">Jr. Penetration Tester (TryHackMe)</div><div class="cert-date">Currently Learning...</div><div class="cert-emoji">🎯</div></div>
+      <div class="cert-card reveal" style="border-color:rgba(192,132,252,0.08);"><div class="cert-badge" style="background:rgba(192,132,252,0.06);border-color:rgba(192,132,252,0.15);color:var(--purple);">🔄 In Progress</div><div class="cert-name">Web Application Pentesting (TryHackMe)</div><div class="cert-date">Currently Learning...</div><div class="cert-emoji">🌐</div></div>
+      <div class="cert-card reveal" style="border-color:rgba(251,146,60,0.08);"><div class="cert-badge other">🕌 Special Achievement</div><div class="cert-name">Hafiz-e-Quran</div><div class="cert-date">April 21, 2019 · Grade: Mumtaz (Excellent)</div><div class="cert-emoji">🏆</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section">
+    <div class="sec-label">05 // Projects</div>
+    <h2 class="sec-title">What I've <span class="accent">Built</span></h2>
+
+    <div class="project-card reveal">
+      <div class="proj-tags">
+        <span class="proj-tag" style="background:rgba(251,146,60,0.08);border-color:rgba(251,146,60,0.2);color:var(--orange);">☕ Java</span>
+        <span class="proj-tag" style="background:rgba(34,211,238,0.06);border-color:rgba(34,211,238,0.15);color:var(--cyan);">🗄️ SQL</span>
+        <span class="proj-tag" style="background:rgba(192,132,252,0.06);border-color:rgba(192,132,252,0.15);color:var(--purple);">🏗️ Maven</span>
+        <span class="proj-tag" style="background:rgba(74,222,128,0.06);border-color:rgba(74,222,128,0.15);color:var(--green);">✅ Completed</span>
+      </div>
+      <div class="proj-title">🛒 Online Shopping System</div>
+      <div class="proj-sub">Database Systems Project · Fall 2025 Semester · COMSATS University</div>
+      <p class="proj-desc">A fully functional <strong style="color:var(--text);">Amazon-inspired e-commerce desktop application</strong> built with Java Swing and SQL database. Features complete customer & admin portals, secure authentication with password hashing, shopping cart, and order management using professional DAO architecture.</p>
+      <div class="proj-features">
+        <div class="feat"><div class="feat-icon">🔐</div><div class="feat-name">Secure Auth</div><div class="feat-desc">Password hashing</div></div>
+        <div class="feat"><div class="feat-icon">🛍️</div><div class="feat-name">Cart System</div><div class="feat-desc">Full shopping flow</div></div>
+        <div class="feat"><div class="feat-icon">⚙️</div><div class="feat-name">Admin Panel</div><div class="feat-desc">Product & order mgmt</div></div>
+        <div class="feat"><div class="feat-icon">🏗️</div><div class="feat-name">DAO Pattern</div><div class="feat-desc">Clean architecture</div></div>
+        <div class="feat"><div class="feat-icon">🎨</div><div class="feat-name">Amazon UI</div><div class="feat-desc">FlatLaf modern theme</div></div>
+        <div class="feat"><div class="feat-icon">🔄</div><div class="feat-name">Sessions</div><div class="feat-desc">User management</div></div>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/hmaicatsec-rgb/online-shopping-system" target="_blank" class="btn-primary"><i class="fab fa-github"></i> View on GitHub</a>
+        <a href="https://github.com/hmaicatsec-rgb" target="_blank" class="btn-outline"><i class="fab fa-github"></i> All Projects</a>
+      </div>
+    </div>
+
+    <!-- Coming Soon -->
+    <div class="reveal" style="border:1.5px dashed rgba(34,211,238,0.1);border-radius:16px;padding:48px;text-align:center;background:rgba(34,211,238,0.01);">
+      <div style="font-size:40px;margin-bottom:16px;">🚀</div>
+      <h3 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:10px;">More Coming Soon</h3>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:24px;">Currently building cybersecurity tools and web security projects as I progress through TryHackMe</p>
+      <a href="https://github.com/hmaicatsec-rgb" target="_blank" class="btn-outline" style="font-size:11px;"><i class="fab fa-github"></i> Follow on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--bg2);">
+  <div class="section">
+    <div class="sec-label">06 // Contact</div>
+    <h2 class="sec-title">Let's <span class="accent">Connect</span></h2>
+    <div class="contact-grid">
+      <div>
+        <p style="font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:32px;">I'm open to <strong style="color:var(--text);">internship opportunities, freelance projects, collaborations</strong>, and connecting with fellow security enthusiasts. Don't hesitate to reach out!</p>
+        <div class="contact-items">
+          <a href="mailto:hmai.catsec@gmail.com" class="contact-item reveal">
+            <div class="ci-icon" style="background:rgba(251,146,60,0.1);color:var(--orange);"><i class="fas fa-envelope"></i></div>
+            <div class="ci-text"><div class="ci-label">Email</div><div class="ci-value">hmai.catsec@gmail.com</div></div>
+            <i class="fas fa-arrow-right ci-arrow"></i>
+          </a>
+          <a href="https://wa.me/923101050497" target="_blank" class="contact-item reveal">
+            <div class="ci-icon" style="background:rgba(74,222,128,0.1);color:var(--green);"><i class="fab fa-whatsapp"></i></div>
+            <div class="ci-text"><div class="ci-label">WhatsApp</div><div class="ci-value">+92 310 1050497</div></div>
+            <i class="fas fa-arrow-right ci-arrow"></i>
+          </a>
+          <a href="https://linkedin.com/in/muhammad-ahsan-iqbal-9208973a7" target="_blank" class="contact-item reveal">
+            <div class="ci-icon" style="background:rgba(34,211,238,0.08);color:var(--cyan);"><i class="fab fa-linkedin"></i></div>
+            <div class="ci-text"><div class="ci-label">LinkedIn</div><div class="ci-value">Muhammad Ahsan Iqbal</div></div>
+            <i class="fas fa-arrow-right ci-arrow"></i>
+          </a>
+          <a href="https://github.com/hmaicatsec-rgb" target="_blank" class="contact-item reveal">
+            <div class="ci-icon" style="background:rgba(192,132,252,0.08);color:var(--purple);"><i class="fab fa-github"></i></div>
+            <div class="ci-text"><div class="ci-label">GitHub</div><div class="ci-value">hmaicatsec-rgb</div></div>
+            <i class="fas fa-arrow-right ci-arrow"></i>
+          </a>
+          <a href="https://tryhackme.com/p/Cat.Sec" target="_blank" class="contact-item reveal">
+            <div class="ci-icon" style="background:rgba(248,113,113,0.08);color:var(--red);"><i class="fas fa-shield-halved"></i></div>
+            <div class="ci-text"><div class="ci-label">TryHackMe</div><div class="ci-value">Cat.Sec — Top 15% Global</div></div>
+            <i class="fas fa-arrow-right ci-arrow"></i>
+          </a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;">
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;">Send a Message</div>
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" id="f-name" placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Email</label>
+            <input type="email" class="form-input" id="f-email" placeholder="john@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" id="f-msg" placeholder="Hello Ahsan, I'd like to connect..."></textarea>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button onclick="sendWA()" class="btn-primary" style="flex:1;border:none;cursor:pointer;justify-content:center;"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="border-top:1px solid var(--border);">
+  <footer>
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:900;color:var(--text);margin-bottom:4px;">Muhammad Ahsan Iqbal</div>
+      <div class="footer-copy">© 2026 · BS Software Engineering · COMSATS University · Pakistan 🇵🇰</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:2px;">
+      <span style="width:6px;height:6px;background:var(--green);border-radius:50%;animation:ping 2s infinite;"></span>
+      OPEN TO OPPORTUNITIES
+    </div>
+    <div class="footer-social">
+      <a href="mailto:hmai.catsec@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+      <a href="https://wa.me/923101050497" target="_blank" class="social-btn" style="border-color:rgba(37,211,102,0.2);color:var(--green);"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://github.com/hmaicatsec-rgb" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/muhammad-ahsan-iqbal-9208973a7" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://tryhackme.com/p/Cat.Sec" target="_blank" class="social-btn"><i class="fas fa-shield-halved"></i></a>
+    </div>
+  </footer>
 </div>
 
-<!-- ============================================================
-     SCRIPTS
-============================================================ -->
 <script>
-// ---- LOADER ----
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hidden');
-  }, 2000);
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+function animateRing(){ rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animateRing); }
+animateRing();
+document.querySelectorAll('a,button,.tab-btn').forEach(el => {
+  el.addEventListener('mouseenter',()=>{ cursor.style.transform='translate(-50%,-50%) scale(2)'; ring.style.transform='translate(-50%,-50%) scale(1.5)'; });
+  el.addEventListener('mouseleave',()=>{ cursor.style.transform='translate(-50%,-50%) scale(1)'; ring.style.transform='translate(-50%,-50%) scale(1)'; });
 });
 
-// ---- CURSOR ----
-const curDot = document.getElementById('curDot');
-const curRing = document.getElementById('curRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  curDot.style.left = mx + 'px';
-  curDot.style.top = my + 'px';
-});
-(function animateRing() {
-  rx += (mx - rx) * 0.1;
-  ry += (my - ry) * 0.1;
-  curRing.style.left = rx + 'px';
-  curRing.style.top = ry + 'px';
-  requestAnimationFrame(animateRing);
-})();
-document.querySelectorAll('a, button, .skill-card, .cert-card, .service-card, .contact-item').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-});
-
-// ---- PARTICLES ----
-const canvas = document.getElementById('particles-canvas');
-const ctx = canvas.getContext('2d');
-let W = canvas.width = window.innerWidth;
-let H = canvas.height = window.innerHeight;
-window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
-
-const particles = Array.from({length: 70}, () => ({
-  x: Math.random() * W, y: Math.random() * H,
-  vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
-  size: Math.random() * 1.5 + 0.5,
-  alpha: Math.random() * 0.4 + 0.1,
-  color: Math.random() > 0.5 ? '0,255,255' : '168,85,247'
-}));
-
-function drawParticles() {
-  ctx.clearRect(0, 0, W, H);
-  particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy;
-    if(p.x < 0) p.x = W; if(p.x > W) p.x = 0;
-    if(p.y < 0) p.y = H; if(p.y > H) p.y = 0;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
-    ctx.fill();
-  });
-  // draw connections
-  particles.forEach((p, i) => {
-    particles.slice(i+1).forEach(q => {
-      const d = Math.hypot(p.x - q.x, p.y - q.y);
-      if(d < 100) {
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(q.x, q.y);
-        ctx.strokeStyle = `rgba(0,255,255,${0.04 * (1 - d/100)})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    });
-  });
-  requestAnimationFrame(drawParticles);
-}
-drawParticles();
-
-// ---- TYPED TEXT ----
-const phrases = ['Software Engineer', 'Security Researcher', 'Ethical Hacker', 'Python Developer', 'Problem Solver', 'Future Tech Leader'];
-let pi = 0, ci = 0, deleting = false;
-const typedEl = document.getElementById('typed-text');
-function type() {
-  const phrase = phrases[pi];
-  if(!deleting) {
-    typedEl.textContent = phrase.slice(0, ++ci);
-    if(ci === phrase.length) { deleting = true; setTimeout(type, 2000); return; }
-  } else {
-    typedEl.textContent = phrase.slice(0, --ci);
-    if(ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
-  }
-  setTimeout(type, deleting ? 60 : 100);
-}
-setTimeout(type, 1500);
-
-// ---- NAV SCROLL ----
+// NAV
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 50);
-  document.getElementById('scrollTopBtn').classList.toggle('show', window.scrollY > 400);
+  document.getElementById('back-top').classList.toggle('show', window.scrollY > 400);
 });
 
-// ---- HAMBURGER ----
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-let menuOpen = false;
-hamburger.addEventListener('click', () => {
-  menuOpen = !menuOpen;
-  mobileMenu.classList.toggle('open', menuOpen);
-  hamburger.querySelectorAll('span')[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px,5px)' : '';
-  hamburger.querySelectorAll('span')[1].style.opacity = menuOpen ? '0' : '1';
-  hamburger.querySelectorAll('span')[2].style.transform = menuOpen ? 'rotate(-45deg) translate(5px,-5px)' : '';
-});
-function closeMobile() { menuOpen = false; mobileMenu.classList.remove('open'); hamburger.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity='1'; }); }
+// REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ---- PROFILE CARD 3D TILT ----
-const profileCard = document.getElementById('profileCard');
-if(profileCard) {
-  profileCard.addEventListener('mousemove', e => {
-    const r = profileCard.getBoundingClientRect();
-    const xp = (e.clientX - r.left) / r.width - 0.5;
-    const yp = (e.clientY - r.top) / r.height - 0.5;
-    profileCard.style.transform = `perspective(1000px) rotateY(${xp * 12}deg) rotateX(${-yp * 12}deg) scale(1.02)`;
-  });
-  profileCard.addEventListener('mouseleave', () => { profileCard.style.transform = ''; });
-}
-
-// ---- SKILL TABS ----
-function switchTab(id, btn) {
-  document.querySelectorAll('.skills-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.skill-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const panel = document.getElementById('panel-' + id);
-  panel.classList.add('active');
-  // animate bars
-  setTimeout(() => {
-    panel.querySelectorAll('.sc-fill').forEach(f => { f.classList.remove('done'); void f.offsetWidth; f.classList.add('done'); });
-  }, 50);
-}
-
-// ---- SCROLL REVEAL ----
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if(e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), e.target.dataset.delay || 0);
+// SKILL BARS animate on visible
+const skillObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-fill').forEach(bar => {
+        bar.style.width = bar.style.getPropertyValue('--w') || bar.getAttribute('style').match(/--w:([\d%]+)/)?.[1] || '0%';
+      });
     }
   });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el, i) => {
-  el.dataset.delay = (i % 5) * 80;
-  observer.observe(el);
-});
+}, {threshold:0.3});
+document.querySelectorAll('.tab-panel').forEach(p => skillObserver.observe(p));
 
-// Skill bar animation on initial panel
-setTimeout(() => {
-  document.querySelectorAll('#panel-security .sc-fill').forEach(f => f.classList.add('done'));
-}, 600);
-
-// ---- CONTACT FORM ----
-function sendMessage() {
-  const name = document.getElementById('formName').value;
-  const email = document.getElementById('formEmail').value;
-  const msg = document.getElementById('formMsg').value;
-  if(!name || !email || !msg) { alert('Please fill all fields!'); return; }
-  const waMsg = `Hello Ahsan! I'm ${name} (${email}).\n\n${msg}`;
-  window.open(`https://wa.me/923101050497?text=${encodeURIComponent(waMsg)}`, '_blank');
+// TABS
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+  // animate bars
+  document.getElementById('tab-'+id).querySelectorAll('.skill-fill').forEach(bar => {
+    const match = bar.getAttribute('style').match(/--w:([\d%]+)/);
+    if(match) { bar.style.width='0%'; setTimeout(()=>{ bar.style.width=match[1]; },50); }
+  });
 }
 
-// ---- DUPLICATE MARQUEE for seamless loop ----
-const track = document.getElementById('marquee');
-track.innerHTML += track.innerHTML;
+// WA FORM
+function sendWA() {
+  const name = document.getElementById('f-name').value.trim() || 'Someone';
+  const email = document.getElementById('f-email').value.trim() || 'N/A';
+  const msg = document.getElementById('f-msg').value.trim() || 'Hello!';
+  const text = `Hi Ahsan! I'm *${name}* (${email}).\n\n${msg}`;
+  window.open('https://wa.me/923101050497?text='+encodeURIComponent(text),'_blank');
+}
+
+// CANVAS PARTICLES
+const canvas = document.createElement('canvas');
+canvas.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.4;';
+document.body.insertBefore(canvas,document.body.firstChild);
+const ctx = canvas.getContext('2d');
+let W,H,particles=[];
+function resize(){ W=canvas.width=innerWidth; H=canvas.height=innerHeight; }
+resize();
+window.addEventListener('resize',resize);
+for(let i=0;i<50;i++) particles.push({x:Math.random()*2000,y:Math.random()*1000,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:Math.random()*1.5+0.5});
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+    if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(34,211,238,0.4)'; ctx.fill();
+  });
+  particles.forEach((a,i)=>{ particles.slice(i+1).forEach(b=>{
+    const d=Math.hypot(a.x-b.x,a.y-b.y);
+    if(d<120){ ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+      ctx.strokeStyle=`rgba(34,211,238,${0.08*(1-d/120)})`; ctx.lineWidth=0.5; ctx.stroke(); }
+  }); });
+  requestAnimationFrame(draw);
+}
+draw();
 </script>
 </body>
 </html>
