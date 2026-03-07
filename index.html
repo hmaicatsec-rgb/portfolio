@@ -259,4 +259,487 @@ nav.scrolled{background:rgba(3,7,18,0.9);backdrop-filter:blur(20px);border-botto
 .fsb:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-3px);}
 
 /* WA FLOAT */
-.wa-float{position:fixed;bott
+.wa-float{position:fixed;bottom:30px;right:30px;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;text-decoration:none;z-index:200;box-shadow:0 6px 25px rgba(37,211,102,0.4);transition:all 0.3s;animation:wa-glow 3s infinite;}
+@keyframes wa-glow{0%,100%{box-shadow:0 6px 25px rgba(37,211,102,0.4);}50%{box-shadow:0 6px 40px rgba(37,211,102,0.7);}}
+.wa-float:hover{transform:scale(1.1)translateY(-4px);}
+
+/* BACK TOP */
+#btt{position:fixed;bottom:30px;left:30px;width:42px;height:42px;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:15px;cursor:pointer;z-index:200;opacity:0;transform:translateY(10px);transition:all 0.3s;text-decoration:none;}
+#btt.show{opacity:1;transform:translateY(0);}
+#btt:hover{border-color:var(--cyan);color:var(--cyan);}
+
+/* SCROLL HINT */
+.scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;z-index:2;animation:sh 2s infinite;}
+@keyframes sh{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+.sh-icon{color:var(--cyan);font-size:16px;}
+
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .nav-links{display:none;}
+  #hero{padding:100px 20px 60px;}
+  .hero-grid,.about-grid,.edu-grid,.contact-grid{grid-template-columns:1fr;}
+  .hero-card{display:none;}
+  .hero-stats{grid-template-columns:repeat(2,1fr);}
+  .sec{padding:60px 20px;}
+  .certs-grid,.proj-feats{grid-template-columns:repeat(2,1fr);}
+  .skills-grid{grid-template-columns:1fr;}
+  .thm-banner{grid-template-columns:1fr;}
+  .footer-inner{flex-direction:column;gap:16px;text-align:center;padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-logo">MAI</div>
+  <div class="ld-name">Muhammad Ahsan Iqbal</div>
+  <div class="ld-bar"><div class="ld-fill" id="ld-fill"></div></div>
+  <div class="ld-pct" id="ld-pct">0%</div>
+</div>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/923101050497" target="_blank" class="wa-float">💬</a>
+<a href="#hero" id="btt">↑</a>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">MAI</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag"><span class="tag-dot"></span>Available for Internships & Freelance</div>
+      <h1 class="hero-name"><span class="n1">Muhammad<br></span><span class="n2">Ahsan Iqbal</span></h1>
+      <div class="hero-typed"><span id="typed-text"></span><span id="typed-cursor"></span></div>
+      <p class="hero-desc">First-year <strong>BS Software Engineering</strong> student at COMSATS University, Sahiwal. Passionate about <strong>cybersecurity & ethical hacking</strong>. Ranked <strong>Top 15% on TryHackMe</strong> globally with a 47-day streak. Building from zero through labs, certs & real projects.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-p">✉️ Get In Touch</a>
+        <a href="https://www.linkedin.com/in/muhammad-ahsan-iqbal-9208973a7" target="_blank" class="btn-o">💼 LinkedIn</a>
+        <a href="https://wa.me/923101050497" target="_blank" class="btn-o btn-wa">💬 WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat s1"><div class="stat-n" id="s-cgpa">3.51</div><div class="stat-l">CGPA</div></div>
+        <div class="stat s2"><div class="stat-n">Top 15%</div><div class="stat-l">TryHackMe</div></div>
+        <div class="stat s3"><div class="stat-n" id="s-certs">6+</div><div class="stat-l">Certificates</div></div>
+        <div class="stat s4"><div class="stat-n" id="s-streak">47</div><div class="stat-l">Day Streak 🔥</div></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="card-bar">
+        <div class="cd" style="background:#f87171"></div>
+        <div class="cd" style="background:#fbbf24"></div>
+        <div class="cd" style="background:#4ade80"></div>
+        <span class="card-title">profile.json</span>
+      </div>
+      <div class="card-body">
+        <span style="color:#f8fafc">{</span><br>
+        &nbsp;&nbsp;<span class="ck">"name"</span>: <span class="cs">"Muhammad Ahsan Iqbal"</span>,<br>
+        &nbsp;&nbsp;<span class="ck">"alias"</span>: <span class="cs">"Cat.Sec"</span>,<br>
+        &nbsp;&nbsp;<span class="ck">"age"</span>: <span class="cn">20</span>,<br>
+        &nbsp;&nbsp;<span class="ck">"location"</span>: <span class="cs">"Vehari, Pakistan 🇵🇰"</span>,<br>
+        &nbsp;&nbsp;<span class="ck">"hafiz"</span>: <span class="cb">true</span>, <span class="cc">// Since 2019 🕌</span><br>
+        &nbsp;&nbsp;<span class="ck">"cgpa"</span>: <span class="cn">3.51</span>,<br>
+        &nbsp;&nbsp;<span class="ck">"thm_rank"</span>: <span class="cs">"Top 15%"</span>,<br>
+        &nbsp;&nbsp;<span class="ck">"streak"</span>: <span class="cn">47</span>, <span class="cc">// days 🔥</span><br>
+        &nbsp;&nbsp;<span class="ck">"goal"</span>: <span class="cs">"Pentester + Dev"</span>,<br>
+        &nbsp;&nbsp;<span class="ck">"open_to"</span>: <span class="cb">true</span> <span class="cc">// internships</span><br>
+        <span style="color:#f8fafc">}</span>
+      </div>
+      <div class="thm-mini">
+        <img src="https://tryhackme-badges.s3.amazonaws.com/Cat.Sec.png" alt="THM" style="height:48px;border-radius:6px;">
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;">Live Stats</div>
+          <div class="thm-s">
+            <div><div class="ts-n" style="color:var(--orange)">Top 15%</div><div class="ts-l">Rank</div></div>
+            <div><div class="ts-n">47</div><div class="ts-l">Streak</div></div>
+            <div><div class="ts-n" style="color:var(--purple)">11</div><div class="ts-l">Badges</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span class="sh-icon">↓</span>Scroll Down</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span class="mq-item">Penetration Testing <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Ethical Hacking <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Java Development <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Python <span class="mq-dot">✦</span></span>
+    <span class="mq-item">SQL Databases <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Red Teaming <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Web App Security <span class="mq-dot">✦</span></span>
+    <span class="mq-item">TryHackMe Top 15% <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Hafiz-e-Quran 🕌 <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Penetration Testing <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Ethical Hacking <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Java Development <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Python <span class="mq-dot">✦</span></span>
+    <span class="mq-item">SQL Databases <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Red Teaming <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Web App Security <span class="mq-dot">✦</span></span>
+    <span class="mq-item">TryHackMe Top 15% <span class="mq-dot">✦</span></span>
+    <span class="mq-item">Hafiz-e-Quran 🕌 <span class="mq-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about"><div class="sec">
+  <div class="sec-lbl">01 // About</div>
+  <h2 class="sec-title">Who <span class="ac">I Am</span></h2>
+  <div class="about-grid">
+    <div class="rv">
+      <p class="about-p">I'm <strong>Muhammad Ahsan Iqbal</strong>, a first-year BS Software Engineering student at COMSATS University Islamabad, Sahiwal Campus. I'm deeply passionate about <strong>cybersecurity and software development</strong>.</p>
+      <p class="about-p">I completed <strong>Hifz-e-Quran in 2019 at just 14 years old</strong> — a journey that built the discipline and consistency I now apply to everything, especially cybersecurity learning.</p>
+      <div class="about-hl">🎯 Working through TryHackMe Penetration Tester path<br>🔐 Learning Web App Security, Red Teaming & Networks<br>💻 Building real projects with Java, Python & SQL</div>
+      <p class="about-p">Despite being in Year 1, I'm already ranked <strong>Top 15% globally on TryHackMe</strong> (3M+ users). I believe in learning by doing — zero to hero through labs and real projects.</p>
+    </div>
+    <div class="rv">
+      <div class="info-grid">
+        <div class="info-item"><div class="i-lbl">Name</div><div class="i-val">Muhammad Ahsan Iqbal</div></div>
+        <div class="info-item"><div class="i-lbl">Alias</div><div class="i-val">Cat.Sec 🐱</div></div>
+        <div class="info-item"><div class="i-lbl">Age</div><div class="i-val">20 (July 19, 2005)</div></div>
+        <div class="info-item"><div class="i-lbl">Location</div><div class="i-val">Vehari, Punjab 🇵🇰</div></div>
+        <div class="info-item"><div class="i-lbl">University</div><div class="i-val">COMSATS Sahiwal</div></div>
+        <div class="info-item"><div class="i-lbl">Program</div><div class="i-val">BS Software Engineering</div></div>
+        <div class="info-item"><div class="i-lbl">CGPA</div><div class="i-val" style="color:var(--cyan)">3.51 / 4.0</div></div>
+        <div class="info-item"><div class="i-lbl">Status</div><div class="i-val" style="color:var(--green)">Open to Internships ✅</div></div>
+        <div class="info-item"><div class="i-lbl">Languages</div><div class="i-val">Punjabi · Urdu · English · German</div></div>
+        <div class="info-item"><div class="i-lbl">Achievement</div><div class="i-val">Hafiz-e-Quran 🕌 (2019)</div></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- SKILLS -->
+<div class="sec-alt"><section id="skills"><div class="sec">
+  <div class="sec-lbl">02 // Skills</div>
+  <h2 class="sec-title">Technical <span class="ac">Arsenal</span></h2>
+  <div class="tabs rv">
+    <button class="tab active" onclick="showTab('sec',this)">🔐 Security</button>
+    <button class="tab" onclick="showTab('prog',this)">💻 Programming</button>
+    <button class="tab" onclick="showTab('tools',this)">🛠️ Tools</button>
+    <button class="tab" onclick="showTab('soft',this)">🧠 Soft Skills</button>
+  </div>
+  <div id="tp-sec" class="tab-pane active rv">
+    <div class="skills-grid">
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Penetration Testing</span><span class="sk-pc">45%</span></div><div class="sk-bar"><div class="sk-fill" data-w="45"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Web App Security</span><span class="sk-pc">40%</span></div><div class="sk-bar"><div class="sk-fill" data-w="40"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Network Security</span><span class="sk-pc">50%</span></div><div class="sk-bar"><div class="sk-fill" data-w="50"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Red Teaming</span><span class="sk-pc">25%</span></div><div class="sk-bar"><div class="sk-fill" data-w="25"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Linux / CLI</span><span class="sk-pc">55%</span></div><div class="sk-bar"><div class="sk-fill" data-w="55"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">CTF Challenges</span><span class="sk-pc">50%</span></div><div class="sk-bar"><div class="sk-fill" data-w="50"></div></div></div>
+    </div>
+  </div>
+  <div id="tp-prog" class="tab-pane rv">
+    <div class="skills-grid">
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Java (OOP)</span><span class="sk-pc">65%</span></div><div class="sk-bar"><div class="sk-fill" data-w="65"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Python</span><span class="sk-pc">55%</span></div><div class="sk-bar"><div class="sk-fill" data-w="55"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">C++ / DSA</span><span class="sk-pc">50%</span></div><div class="sk-bar"><div class="sk-fill" data-w="50"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">SQL / Databases</span><span class="sk-pc">65%</span></div><div class="sk-bar"><div class="sk-fill" data-w="65"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">HTML / CSS</span><span class="sk-pc">60%</span></div><div class="sk-bar"><div class="sk-fill" data-w="60"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Data Structures</span><span class="sk-pc">60%</span></div><div class="sk-bar"><div class="sk-fill" data-w="60"></div></div></div>
+    </div>
+  </div>
+  <div id="tp-tools" class="tab-pane rv">
+    <div class="skills-grid">
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">TryHackMe</span><span class="sk-pc">Top 15%</span></div><div class="sk-bar"><div class="sk-fill" data-w="75"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Git / GitHub</span><span class="sk-pc">50%</span></div><div class="sk-bar"><div class="sk-fill" data-w="50"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Maven</span><span class="sk-pc">55%</span></div><div class="sk-bar"><div class="sk-fill" data-w="55"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">WordPress</span><span class="sk-pc">50%</span></div><div class="sk-bar"><div class="sk-fill" data-w="50"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">MS Office</span><span class="sk-pc">75%</span></div><div class="sk-bar"><div class="sk-fill" data-w="75"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">IntelliJ / VSCode</span><span class="sk-pc">65%</span></div><div class="sk-bar"><div class="sk-fill" data-w="65"></div></div></div>
+    </div>
+  </div>
+  <div id="tp-soft" class="tab-pane rv">
+    <div class="skills-grid">
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Self-Learning</span><span class="sk-pc">90%</span></div><div class="sk-bar"><div class="sk-fill" data-w="90"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Consistency</span><span class="sk-pc">85%</span></div><div class="sk-bar"><div class="sk-fill" data-w="85"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Critical Thinking</span><span class="sk-pc">80%</span></div><div class="sk-bar"><div class="sk-fill" data-w="80"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Problem Solving</span><span class="sk-pc">75%</span></div><div class="sk-bar"><div class="sk-fill" data-w="75"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Communication</span><span class="sk-pc">70%</span></div><div class="sk-bar"><div class="sk-fill" data-w="70"></div></div></div>
+      <div class="sk"><div class="sk-hd"><span class="sk-nm">Teamwork</span><span class="sk-pc">75%</span></div><div class="sk-bar"><div class="sk-fill" data-w="75"></div></div></div>
+    </div>
+  </div>
+</div></section></div>
+
+<!-- EDUCATION -->
+<section id="education"><div class="sec">
+  <div class="sec-lbl">03 // Education</div>
+  <h2 class="sec-title">Academic <span class="ac">Journey</span></h2>
+  <div class="edu-grid">
+    <div class="timeline rv">
+      <div class="t-item">
+        <div class="t-date">2024 — Present</div>
+        <div class="t-title">BS Software Engineering</div>
+        <div class="t-sub">COMSATS University Islamabad, Sahiwal Campus</div>
+        <div class="badges"><span class="badge bc">CIIT/FA24-BSE-123/SWL</span><span class="badge bo">4th Semester</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">2022 — 2024</div>
+        <div class="t-title">ICS (Intermediate)</div>
+        <div class="t-sub">Govt. Graduate College Burewala</div>
+        <div class="badges"><span class="badge bc">853 / 1200</span><span class="badge bp">Computer Science</span><span class="badge bg">Passed ✅</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">2019</div>
+        <div class="t-title">Hafiz-e-Quran 🕌</div>
+        <div class="t-sub">Wifaq ul Madaris al-Arabia Pakistan</div>
+        <div class="badges"><span class="badge bg">Grade: Mumtaz (Excellent)</span><span class="badge bo">Age 14 🏆</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">2020 — 2022</div>
+        <div class="t-title">Matriculation</div>
+        <div class="t-sub">Govt. M.C Model High School Burewala</div>
+        <div class="badges"><span class="badge bg">Passed ✅</span></div>
+      </div>
+    </div>
+    <div class="rv">
+      <div class="cgpa-grid">
+        <div class="cgpa-card"><div class="cgpa-sem">Fall 2024 · Sem 1</div><div class="cgpa-num">3.41</div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--green);margin-top:4px;">GAS ✓</div></div>
+        <div class="cgpa-card"><div class="cgpa-sem">Spring 2025 · Sem 2</div><div class="cgpa-num">3.55</div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--green);margin-top:4px;">GAS ✓</div></div>
+        <div class="cgpa-card"><div class="cgpa-sem">Fall 2025 · Sem 3</div><div class="cgpa-num">3.51</div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--green);margin-top:4px;">GAS ✓</div></div>
+        <div class="cgpa-card current"><div class="cgpa-sem">Spring 2026 · Sem 4</div><div class="cgpa-num">🔄</div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--orange);margin-top:4px;">Current</div></div>
+      </div>
+      <div class="subj-box">
+        <div class="subj-title">Current Semester Subjects</div>
+        <div class="subj-item"><span class="subj-name">Information Security</span><span class="subj-code">CSC232</span></div>
+        <div class="subj-item"><span class="subj-name">Artificial Intelligence</span><span class="subj-code">CSC262</span></div>
+        <div class="subj-item"><span class="subj-name">Computer Networks</span><span class="subj-code">CSC275</span></div>
+        <div class="subj-item"><span class="subj-name">Software Req. Engineering</span><span class="subj-code">CSE305</span></div>
+        <div class="subj-item"><span class="subj-name">Expository Writing</span><span class="subj-code">HUM120</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CERTS -->
+<div class="sec-alt"><section id="certifications"><div class="sec">
+  <div class="sec-lbl">04 // Certifications</div>
+  <h2 class="sec-title">Earned <span class="ac">Credentials</span></h2>
+  <div class="thm-banner rv">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <span class="badge b-thm">🔴 TryHackMe</span>
+        <span style="display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:8px;color:var(--green);letter-spacing:2px;"><span style="width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 1.5s infinite;"></span>LIVE</span>
+      </div>
+      <h3 style="font-family:'Syne',sans-serif;font-size:24px;font-weight:900;color:var(--text);margin-bottom:5px;">Cat.Sec <span style="font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);">[0x8][HACKER]</span></h3>
+      <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:18px;">Aspiring Ethical Hacker · COMSATS Sahiwal · Pakistan 🇵🇰</p>
+      <div class="thm-stats-row">
+        <div class="thm-stat-box"><div class="tsb-n" style="color:var(--orange)">Top 15%</div><div class="tsb-l">Global Rank</div></div>
+        <div class="thm-stat-box"><div class="tsb-n" style="color:var(--cyan)">47</div><div class="tsb-l">Day Streak 🔥</div></div>
+        <div class="thm-stat-box"><div class="tsb-n" style="color:var(--purple)">11</div><div class="tsb-l">Badges 🏅</div></div>
+        <div class="thm-stat-box"><div class="tsb-n" style="color:var(--green)">47</div><div class="tsb-l">Rooms Done</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+      <img src="https://tryhackme-badges.s3.amazonaws.com/Cat.Sec.png" alt="THM Badge" style="max-width:200px;border-radius:10px;border:1px solid rgba(248,113,113,0.12);">
+      <a href="https://tryhackme.com/p/Cat.Sec" target="_blank" class="btn-o" style="font-size:10px;padding:8px 18px;border-color:rgba(248,113,113,0.2);color:var(--red);">🔴 View Profile</a>
+    </div>
+  </div>
+  <div class="certs-grid">
+    <div class="cert-card rv"><div class="cert-badge b-thm">🔴 TryHackMe</div><div class="cert-name">Pre Security Learning Path</div><div class="cert-date">February 18, 2026</div><div class="cert-emoji">🔐</div></div>
+    <div class="cert-card rv"><div class="cert-badge b-ua">📘 UniAthena × Cambridge</div><div class="cert-name">Basics of AI: Learning Models</div><div class="cert-date">January 22, 2026</div><div class="cert-emoji">🤖</div></div>
+    <div class="cert-card rv"><div class="cert-badge b-ua">📘 UniAthena × Cambridge</div><div class="cert-name">Basics of Machine Learning Algorithms</div><div class="cert-date">January 22, 2026</div><div class="cert-emoji">🧠</div></div>
+    <div class="cert-card rv"><div class="cert-badge b-ua">📘 UniAthena × Cambridge</div><div class="cert-name">Basics of Python</div><div class="cert-date">January 22, 2026</div><div class="cert-emoji">🐍</div></div>
+    <div class="cert-card rv"><div class="cert-badge b-ua">📘 UniAthena × Cambridge</div><div class="cert-name">Basics of Data Visualization Using Python</div><div class="cert-date">January 23, 2026</div><div class="cert-emoji">📊</div></div>
+    <div class="cert-card rv"><div class="cert-badge b-ua">📘 UniAthena × Cambridge</div><div class="cert-name">Basics of Data Science</div><div class="cert-date">January 23, 2026</div><div class="cert-emoji">📈</div></div>
+    <div class="cert-card rv" style="border-color:rgba(34,211,238,0.08)"><div class="cert-badge b-prog">🔄 In Progress</div><div class="cert-name">Jr. Penetration Tester (TryHackMe)</div><div class="cert-date">Currently Learning...</div><div class="cert-emoji">🎯</div></div>
+    <div class="cert-card rv" style="border-color:rgba(192,132,252,0.08)"><div class="cert-badge b-prog" style="background:rgba(192,132,252,0.06);border-color:rgba(192,132,252,0.15);color:var(--purple)">🔄 In Progress</div><div class="cert-name">Web Application Pentesting (TryHackMe)</div><div class="cert-date">Currently Learning...</div><div class="cert-emoji">🌐</div></div>
+    <div class="cert-card rv"><div class="cert-badge b-spec">🕌 Special Achievement</div><div class="cert-name">Hafiz-e-Quran</div><div class="cert-date">April 21, 2019 · Grade: Mumtaz</div><div class="cert-emoji">🏆</div></div>
+  </div>
+</div></section></div>
+
+<!-- PROJECTS -->
+<section id="projects"><div class="sec">
+  <div class="sec-lbl">05 // Projects</div>
+  <h2 class="sec-title">What I've <span class="ac">Built</span></h2>
+  <div class="proj-card rv">
+    <div class="proj-tags">
+      <span class="pt" style="background:rgba(251,146,60,0.08);border-color:rgba(251,146,60,0.2);color:var(--orange)">☕ Java</span>
+      <span class="pt" style="background:rgba(34,211,238,0.06);border-color:rgba(34,211,238,0.15);color:var(--cyan)">🗄️ SQL</span>
+      <span class="pt" style="background:rgba(192,132,252,0.06);border-color:rgba(192,132,252,0.15);color:var(--purple)">🏗️ Maven</span>
+      <span class="pt" style="background:rgba(74,222,128,0.06);border-color:rgba(74,222,128,0.15);color:var(--green)">✅ Completed</span>
+    </div>
+    <div class="proj-title">🛒 Online Shopping System</div>
+    <div class="proj-sub">Database Systems Project · Fall 2025 · COMSATS University</div>
+    <p class="proj-desc">A fully functional <strong style="color:var(--text)">Amazon-inspired e-commerce desktop app</strong> built with Java Swing + SQL. Features complete customer & admin portals, secure authentication with password hashing, cart management, and order processing using professional DAO architecture.</p>
+    <div class="proj-feats">
+      <div class="pf"><div class="pf-icon">🔐</div><div class="pf-name">Secure Auth</div><div class="pf-desc">Password hashing</div></div>
+      <div class="pf"><div class="pf-icon">🛍️</div><div class="pf-name">Cart System</div><div class="pf-desc">Full shopping flow</div></div>
+      <div class="pf"><div class="pf-icon">⚙️</div><div class="pf-name">Admin Panel</div><div class="pf-desc">Product management</div></div>
+      <div class="pf"><div class="pf-icon">🏗️</div><div class="pf-name">DAO Pattern</div><div class="pf-desc">Clean architecture</div></div>
+      <div class="pf"><div class="pf-icon">🎨</div><div class="pf-name">Amazon UI</div><div class="pf-desc">FlatLaf modern theme</div></div>
+      <div class="pf"><div class="pf-icon">🔄</div><div class="pf-name">Sessions</div><div class="pf-desc">User management</div></div>
+    </div>
+    <div class="proj-btns">
+      <a href="https://github.com/hmaicatsec-rgb/online-shopping-system" target="_blank" class="btn-p">🔗 View on GitHub</a>
+      <a href="https://github.com/hmaicatsec-rgb" target="_blank" class="btn-o">🔗 All Projects</a>
+    </div>
+  </div>
+  <div class="rv" style="border:1.5px dashed rgba(34,211,238,0.1);border-radius:14px;padding:44px;text-align:center;background:rgba(34,211,238,0.01);">
+    <div style="font-size:38px;margin-bottom:14px;">🚀</div>
+    <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text);margin-bottom:9px;">More Coming Soon</h3>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">Currently building cybersecurity tools as I progress through TryHackMe paths</p>
+    <a href="https://github.com/hmaicatsec-rgb" target="_blank" class="btn-o" style="font-size:10px;">🔗 Follow on GitHub</a>
+  </div>
+</div></section>
+
+<!-- CONTACT -->
+<div class="sec-alt"><section id="contact"><div class="sec">
+  <div class="sec-lbl">06 // Contact</div>
+  <h2 class="sec-title">Let's <span class="ac">Connect</span></h2>
+  <div class="contact-grid">
+    <div>
+      <p style="font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:28px;">Open to <strong style="color:var(--text)">internships, freelance work, collaborations</strong> and connecting with security enthusiasts. Don't hesitate to reach out!</p>
+      <div class="ci-list">
+        <a href="mailto:hmai.catsec@gmail.com" class="ci rv"><div class="ci-icon" style="background:rgba(251,146,60,0.1);color:var(--orange)">📧</div><div><div class="ci-lbl">Email</div><div class="ci-val">hmai.catsec@gmail.com</div></div><span class="ci-arr">→</span></a>
+        <a href="https://wa.me/923101050497" target="_blank" class="ci rv"><div class="ci-icon" style="background:rgba(74,222,128,0.1);color:var(--green)">💬</div><div><div class="ci-lbl">WhatsApp</div><div class="ci-val">+92 310 1050497</div></div><span class="ci-arr">→</span></a>
+        <a href="https://www.linkedin.com/in/muhammad-ahsan-iqbal-9208973a7" target="_blank" class="ci rv"><div class="ci-icon" style="background:rgba(34,211,238,0.08);color:var(--cyan)">💼</div><div><div class="ci-lbl">LinkedIn</div><div class="ci-val">Muhammad Ahsan Iqbal</div></div><span class="ci-arr">→</span></a>
+        <a href="https://github.com/hmaicatsec-rgb" target="_blank" class="ci rv"><div class="ci-icon" style="background:rgba(192,132,252,0.08);color:var(--purple)">🔗</div><div><div class="ci-lbl">GitHub</div><div class="ci-val">hmaicatsec-rgb</div></div><span class="ci-arr">→</span></a>
+        <a href="https://tryhackme.com/p/Cat.Sec" target="_blank" class="ci rv"><div class="ci-icon" style="background:rgba(248,113,113,0.08);color:var(--red)">🛡️</div><div><div class="ci-lbl">TryHackMe</div><div class="ci-val">Cat.Sec — Top 15% Global</div></div><span class="ci-arr">→</span></a>
+      </div>
+    </div>
+    <div class="rv">
+      <div class="form-box">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:22px;">Send a Message</div>
+        <label class="f-lbl">Your Name</label>
+        <input type="text" class="f-inp" id="f-name" placeholder="John Doe">
+        <label class="f-lbl">Your Email</label>
+        <input type="email" class="f-inp" id="f-email" placeholder="john@email.com">
+        <label class="f-lbl">Message</label>
+        <textarea class="f-ta" id="f-msg" placeholder="Hello Ahsan, I'd like to connect..."></textarea>
+        <button onclick="sendWA()" class="btn-p" style="width:100%;justify-content:center;border:none;cursor:pointer;">💬 Send via WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</div></section></div>
+
+<!-- FOOTER -->
+<div class="footer-inner">
+  <div><div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:900;color:var(--text);margin-bottom:3px;">Muhammad Ahsan Iqbal</div><div class="f-copy">© 2026 · BS Software Engineering · COMSATS · Pakistan 🇵🇰</div></div>
+  <div class="f-status"><span class="f-dot"></span>Open to Opportunities</div>
+  <div class="f-social">
+    <a href="mailto:hmai.catsec@gmail.com" class="fsb">📧</a>
+    <a href="https://wa.me/923101050497" target="_blank" class="fsb" style="border-color:rgba(74,222,128,0.2);color:var(--green)">💬</a>
+    <a href="https://github.com/hmaicatsec-rgb" target="_blank" class="fsb">🔗</a>
+    <a href="https://www.linkedin.com/in/muhammad-ahsan-iqbal-9208973a7" target="_blank" class="fsb">💼</a>
+    <a href="https://tryhackme.com/p/Cat.Sec" target="_blank" class="fsb">🛡️</a>
+  </div>
+</div>
+
+<script>
+// LOADER - simple & bulletproof
+(function(){
+  var el=document.getElementById('loader');
+  var fill=document.getElementById('ld-fill');
+  var pctEl=document.getElementById('ld-pct');
+  var p=0;
+  var t=setInterval(function(){
+    p+=Math.random()*18+5;
+    if(p>=100){p=100;clearInterval(t);}
+    if(fill)fill.style.width=p+'%';
+    if(pctEl)pctEl.textContent=Math.floor(p)+'%';
+    if(p>=100){setTimeout(function(){if(el){el.style.opacity='0';setTimeout(function(){el.style.display='none';},700);}},200);}
+  },80);
+  // Hard fallback - always hide after 3s
+  setTimeout(function(){if(el){el.style.opacity='0';setTimeout(function(){el.style.display='none';},700);}},3000);
+})();
+
+// NAV
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);
+  var b=document.getElementById('btt');
+  if(b)b.classList.toggle('show',window.scrollY>400);
+});
+
+// REVEAL
+var ro=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on');});},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(function(el){ro.observe(el);});
+
+// SKILL BARS
+function animateBars(panel){
+  panel.querySelectorAll('.sk-fill').forEach(function(b){
+    var w=b.getAttribute('data-w');
+    b.style.width='0';
+    setTimeout(function(){b.style.width=w+'%';},50);
+  });
+}
+// Animate active tab on load
+setTimeout(function(){animateBars(document.querySelector('.tab-pane.active'));},2800);
+
+// TABS
+function showTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});
+  var pane=document.getElementById('tp-'+id);
+  if(pane){pane.classList.add('active');animateBars(pane);}
+  if(btn)btn.classList.add('active');
+}
+
+// TYPING EFFECT
+var roles=['// Cybersecurity Enthusiast','// Penetration Tester (Learning)','// Software Engineer','// Red Team Aspirant','// Hafiz-e-Quran 🕌','// CTF Player — Top 15% THM'];
+var ri=0,ci=0,del=false;
+var te=document.getElementById('typed-text');
+function type(){
+  if(!te)return;
+  var cur=roles[ri];
+  if(!del){te.textContent=cur.substring(0,ci+1);ci++;if(ci===cur.length){del=true;setTimeout(type,1800);return;}setTimeout(type,65);}
+  else{te.textContent=cur.substring(0,ci-1);ci--;if(ci===0){del=false;ri=(ri+1)%roles.length;setTimeout(type,300);return;}setTimeout(type,35);}
+}
+setTimeout(type,3200);
+
+// WA FORM
+function sendWA(){
+  var n=document.getElementById('f-name').value||'Someone';
+  var e=document.getElementById('f-email').value||'N/A';
+  var m=document.getElementById('f-msg').value||'Hello!';
+  window.open('https://wa.me/923101050497?text='+encodeURIComponent('Hi Ahsan! I\'m *'+n+'* ('+e+').\n\n'+m),'_blank');
+}
+
+// PARTICLES
+var canvas=document.createElement('canvas');
+canvas.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.35;';
+document.body.insertBefore(canvas,document.body.firstChild);
+var ctx=canvas.getContext('2d');
+var W,H,pts=[];
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;}
+resize();
+window.addEventListener('resize',resize);
+for(var i=0;i<55;i++)pts.push({x:Math.random()*2000,y:Math.random()*1000,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.2+.4});
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(function(p){
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(34,211,238,0.5)';ctx.fill();
+  });
+  for(var i=0;i<pts.length;i++){for(var j=i+1;j<pts.length;j++){
+    var d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<110){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+    ctx.strokeStyle='rgba(34,211,238,'+(0.07*(1-d/110))+')';ctx.lineWidth=.5;ctx.stroke();}
+  }}
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
