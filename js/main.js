@@ -12,16 +12,6 @@
     el.textContent = new Date().getFullYear();
   });
 
-  /* ---------- Résumé button: visible only when the PDF exists ---------- */
-  var resumeLinks = document.querySelectorAll('[data-resume]');
-  if (resumeLinks.length) {
-    fetch('assets/resume.pdf', { method: 'HEAD' })
-      .then(function (r) {
-        if (r.ok) resumeLinks.forEach(function (a) { a.hidden = false; });
-      })
-      .catch(function () { /* stay hidden */ });
-  }
-
   /* ---------- Hero typing effect ---------- */
   var roles = [
     'Cybersecurity',

@@ -30,11 +30,6 @@ python3 -m http.server 8000
 # → http://localhost:8000
 ```
 
-## Résumé button
-
-The **Résumé** button appears automatically once `assets/resume.pdf` exists —
-drop the PDF in `assets/` and it shows up in the hero; no code change needed.
-
 ## Contact
 
 Email: hmai.catsec@gmail.com · WhatsApp: +92 310 1050497
