@@ -7,63 +7,43 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Dynamic figures (never go stale) ---------- */
-  function daysBetween(from, to) {
-    var a = new Date(from); a.setHours(0, 0, 0, 0);
-    var b = new Date(to); b.setHours(0, 0, 0, 0);
-    return Math.max(1, Math.floor((b - a) / 864e5) + 1);
-  }
-
-  function calcAge(birth, now) {
-    var b = new Date(birth), n = new Date(now);
-    var age = n.getFullYear() - b.getFullYear();
-    var m = n.getMonth() - b.getMonth();
-    if (m < 0 || (m === 0 && n.getDate() < b.getDate())) age--;
-    return age;
-  }
-
-  var streak = daysBetween('2026-01-19', new Date());
-  document.querySelectorAll('[data-streak]').forEach(function (el) { el.textContent = streak; });
-
-  document.querySelectorAll('[data-age]').forEach(function (el) {
-    el.textContent = calcAge('2005-07-19', new Date());
-  });
-
+  /* ---------- Footer year ---------- */
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
 
-  var thmUpdated = document.getElementById('thm-updated');
-  if (thmUpdated) {
-    thmUpdated.textContent = 'Streak auto-updates daily · Last refreshed ' +
-      new Date().toLocaleDateString('en-PK', { day: 'numeric', month: 'short', year: 'numeric' });
+  /* ---------- Résumé button: visible only when the PDF exists ---------- */
+  var resumeLinks = document.querySelectorAll('[data-resume]');
+  if (resumeLinks.length) {
+    fetch('assets/resume.pdf', { method: 'HEAD' })
+      .then(function (r) {
+        if (r.ok) resumeLinks.forEach(function (a) { a.hidden = false; });
+      })
+      .catch(function () { /* stay hidden */ });
   }
 
   /* ---------- Hero typing effect ---------- */
   var roles = [
-    'Cybersecurity Enthusiast',
-    'Aspiring AI Engineer',
-    'Penetration Tester in Training',
-    'Software Engineering Undergrad',
-    'CTF Player — Top 15% on TryHackMe',
-    'Hafiz-e-Quran'
+    'Cybersecurity',
+    'AI Engineering',
+    'Flutter Development'
   ];
   var typedEl = document.getElementById('typed');
 
   if (typedEl) {
     if (reduceMotion) {
-      typedEl.textContent = roles[0];
+      typedEl.textContent = roles.join(' · ');
     } else {
       var ri = 0, ci = 0, deleting = false;
       (function tick() {
         var word = roles[ri];
         typedEl.textContent = word.slice(0, ci);
         if (!deleting) {
-          if (ci < word.length) { ci++; setTimeout(tick, 55); }
-          else { deleting = true; setTimeout(tick, 1900); }
+          if (ci < word.length) { ci++; setTimeout(tick, 60); }
+          else { deleting = true; setTimeout(tick, 2000); }
         } else {
-          if (ci > 0) { ci--; setTimeout(tick, 28); }
-          else { deleting = false; ri = (ri + 1) % roles.length; setTimeout(tick, 350); }
+          if (ci > 0) { ci--; setTimeout(tick, 32); }
+          else { deleting = false; ri = (ri + 1) % roles.length; setTimeout(tick, 400); }
         }
       })();
     }
